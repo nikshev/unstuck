@@ -1,0 +1,15 @@
+{
+  "name": "unstuck-01-blockhash-not-found",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Solana \"Blockhash not found\" — why it happens and the 2-line fix.",
+  "scripts": {
+    "setup": "node setup-wallet.js",
+    "reproduce": "node reproduce.js",
+    "fix": "node fix.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@solana/web3.js": "^1.98.4"
+  }
+}

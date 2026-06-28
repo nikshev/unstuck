@@ -11,6 +11,7 @@ then watch the fix.
 | #  | Topic | Video | Code |
 |----|-------|-------|------|
 | 01 | Solana "Blockhash not found" — why it happens & the 2-line fix | _(soon)_ | [episodes/01-blockhash-not-found](episodes/01-blockhash-not-found) |
+| 02 | Solana "TokenAccountNotFoundError" — sending SPL tokens to a wallet with no token account | _(soon)_ | [episodes/02-token-account-not-found](episodes/02-token-account-not-found) |
 
 ## How to use
 

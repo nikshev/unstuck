@@ -1,5 +1,7 @@
 node_modules/
 throwaway.json
+recipient.json
+token.json
 keypair*.json
 *.keypair.json
 .env

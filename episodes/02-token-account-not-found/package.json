@@ -1,0 +1,17 @@
+{
+  "name": "unstuck-02-token-account-not-found",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Solana TokenAccountNotFoundError — sending an SPL token to a wallet with no associated token account, and the one-call fix.",
+  "scripts": {
+    "wallet": "node setup-wallet.js",
+    "setup": "node setup-token.js",
+    "reproduce": "node reproduce.js",
+    "fix": "node fix.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@solana/web3.js": "^1.98.4",
+    "@solana/spl-token": "^0.4.9"
+  }
+}

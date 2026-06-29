@@ -1,0 +1,12 @@
+[package]
+name = "two-sum"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "brute"
+path = "src/bin/brute.rs"
+
+[[bin]]
+name = "optimal"
+path = "src/bin/optimal.rs"

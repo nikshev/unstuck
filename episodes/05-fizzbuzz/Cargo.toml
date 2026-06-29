@@ -1,0 +1,13 @@
+[package]
+name = "fizzbuzz"
+version = "0.1.0"
+edition = "2021"
+[[bin]]
+name = "wrong"
+path = "src/bin/wrong.rs"
+[[bin]]
+name = "correct"
+path = "src/bin/correct.rs"
+[[bin]]
+name = "clean"
+path = "src/bin/clean.rs"

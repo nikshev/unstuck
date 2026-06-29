@@ -1,0 +1,12 @@
+[package]
+name = "merge-sort"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "naive"
+path = "src/bin/naive.rs"
+
+[[bin]]
+name = "merge"
+path = "src/bin/merge.rs"

@@ -1,0 +1,10 @@
+[package]
+name = "binary-search"
+version = "0.1.0"
+edition = "2021"
+[[bin]]
+name = "linear"
+path = "src/bin/linear.rs"
+[[bin]]
+name = "binary"
+path = "src/bin/binary.rs"

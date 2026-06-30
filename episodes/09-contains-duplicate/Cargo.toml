@@ -1,0 +1,10 @@
+[package]
+name = "contains-dup"
+version = "0.1.0"
+edition = "2021"
+[[bin]]
+name = "brute"
+path = "src/bin/brute.rs"
+[[bin]]
+name = "set"
+path = "src/bin/set.rs"

@@ -1,0 +1,10 @@
+[package]
+name = "valid-anagram"
+version = "0.1.0"
+edition = "2021"
+[[bin]]
+name = "sort"
+path = "src/bin/sort.rs"
+[[bin]]
+name = "count"
+path = "src/bin/count.rs"

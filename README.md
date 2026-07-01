@@ -6,8 +6,8 @@ Runnable code companions for the [0xUnstuck](https://youtube.com/@0xunstuck) vid
 Each episode is short and self-contained: clone it, run it, see the point.
 
 ## Playlists
-- **Rust Coding Challenges** — episodes 03, 04, 05, 07, 08, 09
-- **Dev Errors, Fixed** — episodes 01, 02, 06, 10
+- **Rust Coding Challenges** — episodes 03, 04, 05, 07, 08, 09, 11, 12, 13
+- **Dev Errors, Fixed** — episodes 01, 02, 06, 10, 14
 
 ## Episodes
 
@@ -23,6 +23,10 @@ Each episode is short and self-contained: clone it, run it, see the point.
 | 08 | Binary Search — bug-free template | Rust | [episodes/08-binary-search](episodes/08-binary-search) |
 | 09 | Contains Duplicate — HashSet | Rust | [episodes/09-contains-duplicate](episodes/09-contains-duplicate) |
 | 10 | Fix "Cannot read properties of undefined" | JS | [episodes/10-cannot-read-undefined](episodes/10-cannot-read-undefined) |
+| 11 | Reverse a Linked List — in-place | Rust | [episodes/11-reverse-linked-list](episodes/11-reverse-linked-list) |
+| 12 | Quicksort + the O(n²) trap | Rust | [episodes/12-quicksort](episodes/12-quicksort) |
+| 13 | Valid Anagram — O(n) char counts | Rust | [episodes/13-valid-anagram](episodes/13-valid-anagram) |
+| 14 | Fix "Port 3000 already in use" (EADDRINUSE) | Node | [episodes/14-port-in-use](episodes/14-port-in-use) |
 
 ## Running an episode
 - **Rust** (needs [rustup](https://rustup.rs)): `cd episodes/<ep> && cargo run --release --bin <name>`

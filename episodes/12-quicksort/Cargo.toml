@@ -1,0 +1,10 @@
+[package]
+name = "quicksort"
+version = "0.1.0"
+edition = "2021"
+[[bin]]
+name = "bad"
+path = "src/bin/bad.rs"
+[[bin]]
+name = "good"
+path = "src/bin/good.rs"

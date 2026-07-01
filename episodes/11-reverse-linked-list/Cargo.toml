@@ -1,0 +1,10 @@
+[package]
+name = "reverse-list"
+version = "0.1.0"
+edition = "2021"
+[[bin]]
+name = "naive"
+path = "src/bin/naive.rs"
+[[bin]]
+name = "inplace"
+path = "src/bin/inplace.rs"

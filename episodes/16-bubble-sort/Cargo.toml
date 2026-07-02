@@ -1,0 +1,10 @@
+[package]
+name = "bubble-sort"
+version = "0.1.0"
+edition = "2021"
+[[bin]]
+name = "passes"
+path = "src/bin/passes.rs"
+[[bin]]
+name = "bench"
+path = "src/bin/bench.rs"

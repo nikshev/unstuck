@@ -1,0 +1,10 @@
+[package]
+name = "group-anagrams"
+version = "0.1.0"
+edition = "2021"
+[[bin]]
+name = "pairs"
+path = "src/bin/pairs.rs"
+[[bin]]
+name = "key"
+path = "src/bin/key.rs"

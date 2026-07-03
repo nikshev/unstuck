@@ -6,10 +6,13 @@ Runnable code companions for the [0xUnstuck](https://youtube.com/@0xunstuck) vid
 Each episode is short and self-contained: clone it, run it, see the point.
 
 ## Playlists
-- **Rust Coding Challenges** — episodes 03, 04, 05, 07, 08, 09, 11, 12, 13, 15, 16, 17
-- **Dev Errors, Fixed** — episodes 01, 02, 06, 10, 14, 18
+- **Rust Coding Challenges** — episodes 03, 04, 05, 07, 08, 09, 11, 12, 13, 15, 16, 17, 19, 20, 21
+- **Dev Errors, Fixed** — episodes 01, 02, 06, 10, 14, 18, 22
 
 ## Episodes
+
+_DeFi security breakdowns (illustrative): [episodes/defi-01-trusted-volumes](episodes/defi-01-trusted-volumes)._
+
 
 | #  | Topic | Stack | Code |
 |----|-------|-------|------|
@@ -32,6 +35,11 @@ Each episode is short and self-contained: clone it, run it, see the point.
 | 16 | Bubble Sort — honest verdict | Rust | [episodes/16-bubble-sort](episodes/16-bubble-sort) |
 | 17 | Group Anagrams — canonical key | Rust | [episodes/17-group-anagrams](episodes/17-group-anagrams) |
 | 18 | Fix the CORS error (the right way) | Node | [episodes/18-cors](episodes/18-cors) |
+
+| 19 | Maximum Subarray - Kadane's O(n) | Rust | [episodes/19-maximum-subarray](episodes/19-maximum-subarray) |
+| 20 | Insertion Sort - and why libraries use it | Rust | [episodes/20-insertion-sort](episodes/20-insertion-sort) |
+| 21 | Number of Islands - DFS flood fill | Rust | [episodes/21-number-of-islands](episodes/21-number-of-islands) |
+| 22 | Fix 'X is not a function' (JS) | Node | [episodes/22-x-is-not-a-function](episodes/22-x-is-not-a-function) |
 
 ## Running an episode
 - **Rust** (needs [rustup](https://rustup.rs)): `cd episodes/<ep> && cargo run --release --bin <name>`

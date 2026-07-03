@@ -1,0 +1,10 @@
+[package]
+name = "max-subarray"
+version = "0.1.0"
+edition = "2021"
+[[bin]]
+name = "brute"
+path = "src/bin/brute.rs"
+[[bin]]
+name = "kadane"
+path = "src/bin/kadane.rs"

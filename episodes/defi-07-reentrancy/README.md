@@ -28,10 +28,10 @@ forge test -vv
 and deployed to Sepolia (deploy with a Value of 4 ether).
 
 ## Live on Sepolia (Etherscan-verified)
-- Vulnerable — https://sepolia.etherscan.io/address/0x7b623F965bfd0a597306d5718b969e689950212c#code
-- Fixed — https://sepolia.etherscan.io/address/0xFd17E1c4479795E8Ac6dF198f2Dbd6d58FBa279E#code
-- 💀 Drain tx — https://sepolia.etherscan.io/tx/0x81135e96477b46d2b94207a5f9ce8074d97ea0ab14a22e9051924d397edc8a8d
-- ✅ Fixed reverts — https://sepolia.etherscan.io/tx/0xe0a86ad63dbdcb42de0e1f9a317f62bfb8b1692efdb99f4aa717d096ae0b613c
+- Vulnerable — https://sepolia.etherscan.io/address/0x5FDb02df5388E90cee50de06aa49BF3be852d1a4#code
+- Fixed — https://sepolia.etherscan.io/address/0xb2d9Fb4dC9Ce5dFb31806B9eb6fe23Cbeca32CD3#code
+- 💀 Drain tx — https://sepolia.etherscan.io/tx/0xc5bafdc4ed41305941b63b08b6be2ce85d2076123f09268984f33ca1494646ff
+- ✅ Fixed reverts — https://sepolia.etherscan.io/tx/0xad49e1a7bda76d7b3a23ef0dd9fc682cc63cc6a9d84f62c7fed4134029e5d42a
 
 ## Takeaway
 Update state **before** any external call (checks → effects → interactions). Any call that sends ETH

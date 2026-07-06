@@ -7,26 +7,36 @@ import "../src/ReentrancyDemo.sol";
 contract ReentrancyDemoTest is Test {
     function setUp() public { vm.deal(address(this), 200 ether); }
 
-    // The OLD vault sends ETH before zeroing the balance, so the attacker's
-    // receive() re-enters withdraw() and drains everyone's funds.
     function test_OLD_Reentrancy_DrainsVault() public {
-        Demo_OLD_Vulnerable demo = new Demo_OLD_Vulnerable{value: 4 ether}();
-        emit log_named_uint("vault before  ", demo.vaultBalance());
-        assertEq(demo.vaultBalance(), 3, "vault holds 10 (other users' funds)");
-        demo.attack();
-        emit log_named_uint("vault after   ", demo.vaultBalance());
-        emit log_named_uint("attacker loot ", demo.attackerLoot());
-        assertEq(demo.vaultBalance(), 0, "vault fully drained");
-        assertEq(demo.attackerLoot(), 4, "attacker took everything for a 1 ETH deposit");
+        // 1. Deploy the attacker; its constructor makes a vulnerable vault and seeds it
+        //    with 3 ether standing in for OTHER users' deposits.
+        Attacker_OLD atk = new Attacker_OLD{value: 3 ether}();
+        emit log_named_uint("pool after seed (others)  ", atk.poolBalance());
+        assertEq(atk.poolBalance(), 3, "vault holds 3 (other users' funds)");
+
+        // 2. The attacker deposits just 1 ether of their own.
+        atk.attackerDeposit{value: 1 ether}();
+        emit log_named_uint("pool after attacker deposit", atk.poolBalance());
+        assertEq(atk.poolBalance(), 4, "pool is now 3 + 1");
+
+        // 3. steal() -> vault.withdraw() -> the attacker's receive() re-enters withdraw()
+        //    before the balance is zeroed -> the vault pays again and again until it's empty.
+        atk.steal();
+        emit log_named_uint("pool after steal          ", atk.poolBalance());
+        emit log_named_uint("attacker loot             ", atk.myLoot());
+        assertEq(atk.poolBalance(), 0, "vault fully drained");
+        assertEq(atk.myLoot(), 4, "attacker took everything for a 1 ETH deposit");
     }
 
-    // The FIXED vault zeroes the balance first, so the re-entrant withdraw reverts.
     function test_FIXED_Reentrancy_Reverts() public {
-        Demo_NEW_Fixed demo = new Demo_NEW_Fixed{value: 4 ether}();
-        emit log_named_uint("vault before  ", demo.vaultBalance());
+        Attacker_NEW atk = new Attacker_NEW{value: 3 ether}();
+        atk.attackerDeposit{value: 1 ether}();
+        emit log_named_uint("pool before steal", atk.poolBalance());
+        assertEq(atk.poolBalance(), 4);
+        // The fixed vault zeroes the balance first, so the re-entrant withdraw reverts.
         vm.expectRevert();
-        demo.attack();
-        emit log_named_uint("vault after   ", demo.vaultBalance());
-        assertEq(demo.vaultBalance(), 3, "vault untouched");
+        atk.steal();
+        emit log_named_uint("pool after (untouched)", atk.poolBalance());
+        assertEq(atk.poolBalance(), 4, "vault untouched");
     }
 }

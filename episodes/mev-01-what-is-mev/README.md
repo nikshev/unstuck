@@ -4,30 +4,43 @@
 
 🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
 
+**MEV = Maximal Extractable Value** — the profit you can extract purely by choosing the *order* of
+transactions in a block. This episode explains MEV from the 2019 *Flash Boys 2.0* paper and proves,
+with a real Foundry test you can run yourself, why getting in first is worth money — then shows the
+original form of MEV, a **Priority Gas Auction**, on a local chain viewed in a block explorer.
 
-**MEV = Maximal Extractable Value** — the profit you can extract purely by choosing the *order*
-of transactions in a block. This episode explains MEV from the 2019 *Flash Boys 2.0* paper and
-reproduces the original form of it — a **Priority Gas Auction (PGA)** — live on a local fork of
-Ethereum, then verifies it in a real block explorer (Otterscan).
+## The idea in one test
 
-## What you'll see
-Two "searchers" want the same slot. Searcher A submits first and bids **5 gwei**; Searcher B
-submits *second* and bids **120 gwei**. When the block is built, the 120-gwei transaction lands in
-**position 0** — the top of the block. Being early doesn't matter; paying more does. That is a
-Priority Gas Auction: the crudest, original form of MEV.
+`Opportunity` is a one-shot prize: the **first** caller to `take()` wins everything; everyone after
+reverts. It stands in for any MEV opportunity (an arbitrage, a liquidation) — only one transaction
+can capture the value, and only if it lands first.
 
-## Run it yourself
-Requires [Foundry](https://getfoundry.sh) (`anvil`, `cast`) and Docker.
+`PriorityGasAuction.t.sol` proves the consequence: the searcher who is **ordered first** wins, and
+the one behind them gets nothing. In a real block that order is decided by gas — so bots bid gas to
+go first. That bidding war is a Priority Gas Auction.
+
+## Run the test yourself
+Requires [Foundry](https://getfoundry.sh).
+
+```bash
+forge install foundry-rs/forge-std   # first time only
+forge test -vvv
+```
+
+You'll see both tests pass, with logs showing Searcher B (the higher bid) capturing the full 1 ETH
+and Searcher A arriving too late.
+
+## See the gas auction on a real chain
+Requires Foundry + Docker. This spins up a local fork + the Otterscan explorer, sends two competing
+transactions (5 gwei vs 120 gwei), and lets you watch the higher bid land in **position 0**.
 
 ```bash
 export ETH_RPC_URL=<your mainnet RPC>     # Alchemy / Infura / your node
-./mev-anvil.sh up                          # forked Anvil on :8555 + Otterscan on :5100
+./mev-anvil.sh up                          # forked Anvil :8555 + Otterscan :5100
 FORK_BLOCK=$(cast block-number --rpc-url http://127.0.0.1:8555) ./pga_demo.sh
 ```
 
-Then open **http://localhost:5100** (Otterscan) and look up the winning transaction — its
-**Block Position is 0** and its **Gas Price is 120 Gwei**.
-
+Open **http://localhost:5100**, find the 120-gwei transaction, and check its **Block Position: 0**.
 Stop everything with `./mev-anvil.sh down`.
 
 ## The bigger picture
@@ -38,4 +51,4 @@ Stop everything with `./mev-anvil.sh down`.
 ## Sources
 - Flash Boys 2.0 (Daian et al., 2019): https://arxiv.org/abs/1904.05234
 - Flashbots docs: https://docs.flashbots.net/
-- Otterscan: https://github.com/otterscan/otterscan
+- Foundry: https://getfoundry.sh · Otterscan: https://github.com/otterscan/otterscan

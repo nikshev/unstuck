@@ -1,5 +1,12 @@
 # DeFi #1 — TrustedVolumes RFQ Drain (~$5.87M, 2026)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/Is5Dr2S1zTQ/maxresdefault.jpg)](https://youtu.be/Is5Dr2S1zTQ)
+
+▶️ **Watch: https://youtu.be/Is5Dr2S1zTQ**
+
+
 > **Illustrative reconstruction** for education — a minimal teaching model of the two flaws,
 > **not** the real bytecode. Do not deploy.
 

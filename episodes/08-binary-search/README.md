@@ -1,5 +1,12 @@
 # 08 — Binary Search (Rust)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/Zd6tO3-tEtk/maxresdefault.jpg)](https://youtu.be/Zd6tO3-tEtk)
+
+▶️ **Watch: https://youtu.be/Zd6tO3-tEtk**
+
+
 > Find a value in a sorted list in ~log n steps. 10,000,000 comparisons (linear) → 23 (binary).
 
 📺 Video: _(soon)_

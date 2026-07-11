@@ -1,5 +1,12 @@
 # 16 — Bubble Sort (Rust)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/HQacr4_NUQI/maxresdefault.jpg)](https://youtu.be/HQacr4_NUQI)
+
+▶️ **Watch: https://youtu.be/HQacr4_NUQI**
+
+
 > The classic teaching sort: swap wrong-order neighbors pass by pass. Honest verdict included.
 
 📺 Video: _(soon)_

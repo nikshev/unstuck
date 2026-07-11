@@ -1,5 +1,12 @@
 # 09 — Contains Duplicate (Rust)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/Fo1mwIyduHA/maxresdefault.jpg)](https://youtu.be/Fo1mwIyduHA)
+
+▶️ **Watch: https://youtu.be/Fo1mwIyduHA**
+
+
 > Does any value appear twice? Brute force is O(n²); a HashSet is O(n).
 
 📺 Video: _(soon)_

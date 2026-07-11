@@ -1,5 +1,10 @@
 # Coin Change — Min Coins (Rust · LeetCode 322)
 
+## 🎬 Watch
+
+🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+
+
 📺 Video: **Coin Change — Dynamic Programming from Scratch (Rust)**
 
 Fewest coins that add up to `amount`.

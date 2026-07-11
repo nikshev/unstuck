@@ -1,5 +1,12 @@
 # 01 — Solana "Blockhash not found"
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/x73cikwFZTU/maxresdefault.jpg)](https://youtu.be/x73cikwFZTU)
+
+▶️ **Watch: https://youtu.be/x73cikwFZTU**
+
+
 > Your transaction fails with **`Transaction simulation failed: Blockhash not found`** — here's
 > why it happens and the two-line fix.
 

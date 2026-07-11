@@ -1,5 +1,10 @@
 # DeFi #10 — Signature Replay (KiloEx-class signature bug, ~$8.4M, 2025)
 
+## 🎬 Watch
+
+🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+
+
 > **Illustrative reconstruction** for education — a minimal teaching model of the flaw,
 > **not** the real bytecode. Do not deploy to mainnet.
 

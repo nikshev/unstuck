@@ -1,5 +1,12 @@
 # 22 — Fix "X is not a function" (JavaScript)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/jgceaLXm5Rw/maxresdefault.jpg)](https://youtu.be/jgceaLXm5Rw)
+
+▶️ **Watch: https://youtu.be/jgceaLXm5Rw**
+
+
 > The part after the dot is what's `undefined`. Read it literally, then check the usual suspects.
 
 📺 Video: _(soon)_

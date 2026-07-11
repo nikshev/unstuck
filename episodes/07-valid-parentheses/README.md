@@ -1,5 +1,12 @@
 # 07 — Valid Parentheses (Rust)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/o-szOloQtZI/maxresdefault.jpg)](https://youtu.be/o-szOloQtZI)
+
+▶️ **Watch: https://youtu.be/o-szOloQtZI**
+
+
 > Are the brackets correctly matched and nested? The naive "just count" check is wrong; a stack fixes it.
 
 📺 Video: _(soon)_

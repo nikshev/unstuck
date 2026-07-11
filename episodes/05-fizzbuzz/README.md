@@ -1,5 +1,12 @@
 # 05 — FizzBuzz (Rust)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/VgRy_An3ZWo/maxresdefault.jpg)](https://youtu.be/VgRy_An3ZWo)
+
+▶️ **Watch: https://youtu.be/VgRy_An3ZWo**
+
+
 > The classic interview filter — and why the version most people write is subtly wrong.
 
 📺 Video: _(soon)_

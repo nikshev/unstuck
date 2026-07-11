@@ -1,5 +1,12 @@
 # 11 — Reverse a Linked List (Rust)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/UOf6XrXZoZM/maxresdefault.jpg)](https://youtu.be/UOf6XrXZoZM)
+
+▶️ **Watch: https://youtu.be/UOf6XrXZoZM**
+
+
 > Reverse a singly linked list. Naive rebuild uses O(n) extra space; in-place pointer reversal uses O(1).
 
 📺 Video: _(soon)_

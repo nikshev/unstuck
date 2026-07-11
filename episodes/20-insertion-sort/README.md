@@ -1,5 +1,12 @@
 # 20 — Insertion Sort (Rust)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/86Q6Y9dmiEQ/maxresdefault.jpg)](https://youtu.be/86Q6Y9dmiEQ)
+
+▶️ **Watch: https://youtu.be/86Q6Y9dmiEQ**
+
+
 > Grow a sorted region on the left, inserting one element at a time. O(n²) worst, O(n) nearly-sorted.
 
 📺 Video: _(soon)_

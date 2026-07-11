@@ -1,5 +1,12 @@
 # 21 — Number of Islands / DFS Flood Fill (Rust)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/Pqvb4RNYR4Y/maxresdefault.jpg)](https://youtu.be/Pqvb4RNYR4Y)
+
+▶️ **Watch: https://youtu.be/Pqvb4RNYR4Y**
+
+
 > Count groups of connected '1's in a grid. DFS "sink" each island so you never recount it.
 
 📺 Video: _(soon)_

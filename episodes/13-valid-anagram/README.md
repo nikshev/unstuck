@@ -1,5 +1,12 @@
 # 13 — Valid Anagram (Rust)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/3wufMwFiT0A/maxresdefault.jpg)](https://youtu.be/3wufMwFiT0A)
+
+▶️ **Watch: https://youtu.be/3wufMwFiT0A**
+
+
 > Are two strings anagrams? Sorting is O(n log n); counting letters is O(n) (~15× faster on 1M chars).
 
 📺 Video: _(soon)_

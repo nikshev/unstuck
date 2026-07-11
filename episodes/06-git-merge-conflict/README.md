@@ -1,5 +1,12 @@
 # 06 — Fix a Git Merge Conflict
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/GrjrgR89FzY/maxresdefault.jpg)](https://youtu.be/GrjrgR89FzY)
+
+▶️ **Watch: https://youtu.be/GrjrgR89FzY**
+
+
 > A conflict isn't an error you broke — it's git asking which version wins. Here's the
 > drill, with a script that reproduces a real conflict so you can practice.
 

@@ -1,5 +1,12 @@
 # Longest Substring Without Repeating Characters (Rust · LeetCode 3)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/Z6j-TY6LyMk/maxresdefault.jpg)](https://youtu.be/Z6j-TY6LyMk)
+
+▶️ **Watch: https://youtu.be/Z6j-TY6LyMk**
+
+
 📺 Video: **Longest Substring Without Repeating — Sliding Window (Rust)**
 
 Find the length of the longest run of characters with no repeats.

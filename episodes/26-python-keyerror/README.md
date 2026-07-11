@@ -1,5 +1,10 @@
 # Fix Python KeyError
 
+## 🎬 Watch
+
+🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+
+
 📺 Video: **Fix Python KeyError the Clean Way**
 
 `KeyError` means you asked a dict for a key it doesn't have. Read the traceback **bottom-up**: the

@@ -1,5 +1,12 @@
 # DeFi #7 — Reentrancy (Stars-Arena-class, ~$3M, 2023)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/CLNUqUDjee0/maxresdefault.jpg)](https://youtu.be/CLNUqUDjee0)
+
+▶️ **Watch: https://youtu.be/CLNUqUDjee0**
+
+
 > **Illustrative reconstruction** for education — a minimal teaching model of the flaw,
 > **not** the real bytecode. Do not deploy to mainnet.
 

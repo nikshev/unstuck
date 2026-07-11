@@ -1,5 +1,12 @@
 # 04 — Merge Sort (Rust)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/b31-cU29WOA/maxresdefault.jpg)](https://youtu.be/b31-cU29WOA)
+
+▶️ **Watch: https://youtu.be/b31-cU29WOA**
+
+
 > Sorting in O(n log n) with divide & conquer — and why it destroys the naive O(n²) sort.
 
 📺 Video: _(soon)_

@@ -1,5 +1,12 @@
 # 17 — Group Anagrams (Rust)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/Kqfi3_vYpFA/maxresdefault.jpg)](https://youtu.be/Kqfi3_vYpFA)
+
+▶️ **Watch: https://youtu.be/Kqfi3_vYpFA**
+
+
 > Bucket words made of the same letters. The trick: every anagram shares one canonical
 > sorted form — use it as a HashMap key.
 

@@ -1,5 +1,12 @@
 # 02 — Solana "TokenAccountNotFoundError"
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/Y71iJbjOCG8/maxresdefault.jpg)](https://youtu.be/Y71iJbjOCG8)
+
+▶️ **Watch: https://youtu.be/Y71iJbjOCG8**
+
+
 > You send an SPL token and your code throws **`TokenAccountNotFoundError`**. Your token and
 > balance are fine — the recipient just has no token account yet. Here's why, and the one-call fix.
 

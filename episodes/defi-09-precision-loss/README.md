@@ -1,5 +1,12 @@
 # DeFi #9 — Precision Loss / Share Inflation (SonneFinance-class, ~$20M, 2024)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/WfZWq8lFJa8/maxresdefault.jpg)](https://youtu.be/WfZWq8lFJa8)
+
+▶️ **Watch: https://youtu.be/WfZWq8lFJa8**
+
+
 > **Illustrative reconstruction** for education — a minimal teaching model of the flaw,
 > **not** the real bytecode. Do not deploy to mainnet.
 

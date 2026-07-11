@@ -1,5 +1,12 @@
 # 18 — Fix the CORS Error (the right way)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/3vpaV1tyQ3s/maxresdefault.jpg)](https://youtu.be/3vpaV1tyQ3s)
+
+▶️ **Watch: https://youtu.be/3vpaV1tyQ3s**
+
+
 > "Blocked by CORS policy" — the BROWSER hides cross-origin responses until the SERVER
 > allows your origin. curl/Postman work because they aren't browsers.
 

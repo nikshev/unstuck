@@ -1,5 +1,12 @@
 # Fix npm ERESOLVE Peer Dependency Errors
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/vBKKuD3gdQA/maxresdefault.jpg)](https://youtu.be/vBKKuD3gdQA)
+
+▶️ **Watch: https://youtu.be/vBKKuD3gdQA**
+
+
 📺 Video: **Fix npm "ERESOLVE" Peer Dependency Errors**
 
 `npm install` fails with `ERESOLVE unable to resolve dependency tree`. It just means two packages

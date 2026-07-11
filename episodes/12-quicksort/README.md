@@ -1,5 +1,12 @@
 # 12 — Quicksort + the O(n²) trap (Rust)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/Vf-9XRJFoa8/maxresdefault.jpg)](https://youtu.be/Vf-9XRJFoa8)
+
+▶️ **Watch: https://youtu.be/Vf-9XRJFoa8**
+
+
 > Quicksort is O(n log n) on average, but a bad pivot makes it O(n²). Demonstrated by comparison count.
 
 📺 Video: _(soon)_

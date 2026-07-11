@@ -1,5 +1,12 @@
 # 14 — Fix "Port 3000 already in use" (EADDRINUSE)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/fQMfFAEKiSs/maxresdefault.jpg)](https://youtu.be/fQMfFAEKiSs)
+
+▶️ **Watch: https://youtu.be/fQMfFAEKiSs**
+
+
 > Only one process can own a port. Free it, or run on another.
 
 📺 Video: _(soon)_

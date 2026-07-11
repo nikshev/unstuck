@@ -1,5 +1,12 @@
 # 10 — Fix "Cannot read properties of undefined" (JavaScript)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/4KeWfekcK4k/maxresdefault.jpg)](https://youtu.be/4KeWfekcK4k)
+
+▶️ **Watch: https://youtu.be/4KeWfekcK4k**
+
+
 > The most common JS runtime error — what it means and how to fix it.
 
 📺 Video: _(soon)_

@@ -1,5 +1,10 @@
 # MEV Explained — Ep 1: What Is MEV?
 
+## 🎬 Watch
+
+🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+
+
 **MEV = Maximal Extractable Value** — the profit you can extract purely by choosing the *order*
 of transactions in a block. This episode explains MEV from the 2019 *Flash Boys 2.0* paper and
 reproduces the original form of it — a **Priority Gas Auction (PGA)** — live on a local fork of

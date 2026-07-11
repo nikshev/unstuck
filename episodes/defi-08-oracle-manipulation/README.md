@@ -1,5 +1,12 @@
 # DeFi #8 — Price Oracle Manipulation (UwU-Lend-class, ~$23M, 2024)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/85hjBB08jgQ/maxresdefault.jpg)](https://youtu.be/85hjBB08jgQ)
+
+▶️ **Watch: https://youtu.be/85hjBB08jgQ**
+
+
 > **Illustrative reconstruction** for education — a minimal teaching model of the flaw,
 > **not** the real bytecode. Do not deploy to mainnet.
 

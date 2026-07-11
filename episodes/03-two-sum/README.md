@@ -1,5 +1,12 @@
 # 03 — Two Sum (Rust)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/2f_GHO8M8-E/maxresdefault.jpg)](https://youtu.be/2f_GHO8M8-E)
+
+▶️ **Watch: https://youtu.be/2f_GHO8M8-E**
+
+
 > Find the two indices whose values add up to a target. The obvious solution is O(n²);
 > a one-pass hash map makes it O(n).
 

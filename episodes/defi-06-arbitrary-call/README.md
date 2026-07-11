@@ -1,5 +1,12 @@
 # DeFi #6 — Arbitrary Call (SwapNet-class, ~$13.4M, 2026)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/vHK8u_fkUXU/maxresdefault.jpg)](https://youtu.be/vHK8u_fkUXU)
+
+▶️ **Watch: https://youtu.be/vHK8u_fkUXU**
+
+
 > **Illustrative reconstruction** for education — a minimal teaching model of the flaw,
 > **not** the real bytecode. Do not deploy to mainnet.
 

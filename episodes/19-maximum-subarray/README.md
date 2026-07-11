@@ -1,5 +1,12 @@
 # 19 — Maximum Subarray / Kadane's Algorithm (Rust)
 
+## 🎬 Watch
+
+[![Watch on YouTube](https://img.youtube.com/vi/2CmFgGeBC1k/maxresdefault.jpg)](https://youtu.be/2CmFgGeBC1k)
+
+▶️ **Watch: https://youtu.be/2CmFgGeBC1k**
+
+
 > Find the contiguous subarray with the largest sum. Brute force is O(n²); Kadane's is O(n).
 
 📺 Video: _(soon)_

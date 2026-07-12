@@ -37,6 +37,7 @@ sandwiches, liquidations, JIT, and the MEV supply chain.
 | Episode | Topic | Code | Video |
 |---|---|---|---|
 | 1 | What Is MEV? — Flash Boys 2.0 & Priority Gas Auctions | [mev-01-what-is-mev](episodes/mev-01-what-is-mev) | 🔜 |
+| 2 | DEX Arbitrage — Uniswap v2 vs SushiSwap (buy cheap, sell dear, 1 tx) | [mev-02-dex-arbitrage](episodes/mev-02-dex-arbitrage) | 🔜 |
 
 ## 🦀 Rust Coding Challenges
 

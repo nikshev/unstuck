@@ -91,6 +91,8 @@ use any of it to harm others.
 
 ## Support
 - **SOL / USDC (Solana):** `3bQPvjmVr2hXdZuzByxmoo3kwkjUwTdnerUUDYUweF2K`
+- **ETH / USDC (Ethereum):** `0xf96102f5f500f1E51E3A1e9B576977fB2EaC83E5`
+- **USDT (Tron):** `TXA9qxr9yZjV3yEPiN9gGYzV6agfCUbizj`
 - **Ko-fi:** https://ko-fi.com/0xunstuck
 
 ## License

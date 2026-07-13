@@ -2,7 +2,9 @@
 
 ## 🎬 Watch
 
-🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+[![Watch on YouTube](https://img.youtube.com/vi/FF_ide4MLBI/maxresdefault.jpg)](https://youtu.be/FF_ide4MLBI)
+
+▶️ **Watch: https://youtu.be/FF_ide4MLBI**
 
 
 > **Illustrative reconstruction** for education — a minimal teaching model of the flaw,

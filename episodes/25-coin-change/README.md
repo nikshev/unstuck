@@ -2,7 +2,9 @@
 
 ## 🎬 Watch
 
-🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+[![Watch on YouTube](https://img.youtube.com/vi/VXLUUHSOkG0/maxresdefault.jpg)](https://youtu.be/VXLUUHSOkG0)
+
+▶️ **Watch: https://youtu.be/VXLUUHSOkG0**
 
 
 📺 Video: **Coin Change — Dynamic Programming from Scratch (Rust)**

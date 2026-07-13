@@ -2,7 +2,9 @@
 
 ## 🎬 Watch
 
-🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+[![Watch on YouTube](https://img.youtube.com/vi/hZGU-8qGJWk/maxresdefault.jpg)](https://youtu.be/hZGU-8qGJWk)
+
+▶️ **Watch: https://youtu.be/hZGU-8qGJWk**
 
 The oldest and purest MEV: the same token trades at **two different prices** on two exchanges, and
 you pocket the gap — buy it cheap on one, sell it dear on the other, in **one atomic transaction**.

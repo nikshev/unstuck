@@ -2,7 +2,9 @@
 
 ## 🎬 Watch
 
-🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+[![Watch on YouTube](https://img.youtube.com/vi/N55Fs6UKpNA/maxresdefault.jpg)](https://youtu.be/N55Fs6UKpNA)
+
+▶️ **Watch: https://youtu.be/N55Fs6UKpNA**
 
 **MEV = Maximal Extractable Value** — the profit you can extract purely by choosing the *order* of
 transactions in a block. This episode explains MEV from the 2019 *Flash Boys 2.0* paper and proves,

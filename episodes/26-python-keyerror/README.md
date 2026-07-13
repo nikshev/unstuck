@@ -2,7 +2,9 @@
 
 ## 🎬 Watch
 
-🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+[![Watch on YouTube](https://img.youtube.com/vi/ob806fuj928/maxresdefault.jpg)](https://youtu.be/ob806fuj928)
+
+▶️ **Watch: https://youtu.be/ob806fuj928**
 
 
 📺 Video: **Fix Python KeyError the Clean Way**

@@ -2,7 +2,9 @@
 
 ## 🎬 Watch
 
-🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+[![Watch on YouTube](https://img.youtube.com/vi/8deHjXutjlg/maxresdefault.jpg)](https://youtu.be/8deHjXutjlg)
+
+▶️ **Watch: https://youtu.be/8deHjXutjlg**
 
 > Find the k most frequent numbers. The obvious way — count, then sort by frequency — is O(n log n).
 > Bucket sort does it in **O(n)**: index the buckets BY frequency, then read from the top.

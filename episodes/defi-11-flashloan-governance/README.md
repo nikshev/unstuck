@@ -2,7 +2,9 @@
 
 ## 🎬 Watch
 
-🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+[![Watch on YouTube](https://img.youtube.com/vi/BS1twmo7BKk/maxresdefault.jpg)](https://youtu.be/BS1twmo7BKk)
+
+▶️ **Watch: https://youtu.be/BS1twmo7BKk**
 
 One of the wildest DeFi hacks ever (Beanstalk Farms, ~$182M, April 2022): an attacker borrows a
 supermajority of a protocol's governance token with a **flash loan**, uses those borrowed votes to

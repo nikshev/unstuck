@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
+import {console2} from "forge-std/console2.sol"; // lets the contract print its balances as it runs
 
 interface IERC20 {
     function balanceOf(address) external view returns (uint256);
@@ -28,13 +29,18 @@ contract FlashArb {
     function startArb(uint256 amount) external {
         AAVE.flashLoanSimple(address(this), address(USDC), amount, "", 0); // borrow, no collateral
     }
-    /// Aave's callback: we now hold the borrowed USDC. Arb it, then repay loan + fee.
+    /// Aave's callback: we hold the borrowed USDC. Arb it, printing our balance at every step, then repay.
     function executeOperation(address, uint256 amount, uint256 premium, address, bytes calldata)
         external returns (bool)
     {
+        console2.log("1. flash-borrowed USDC :", USDC.balanceOf(address(this)) / 1e6);   // Aave just sent it
         uint256 weth = _swap(UNI, USDC, WETH, amount);   // buy cheap WETH on Uniswap
+        console2.log("2. bought WETH (x1e-3) :", WETH.balanceOf(address(this)) / 1e15);  // spent all the USDC
         _swap(SUSHI, WETH, USDC, weth);                  // sell dear WETH on SushiSwap
+        console2.log("3. sold WETH, hold USDC:", USDC.balanceOf(address(this)) / 1e6);   // back to USDC, more of it
+        console2.log("4. owe Aave (loan+fee) :", (amount + premium) / 1e6);              // must repay this much
         USDC.approve(address(AAVE), amount + premium);   // let Aave pull back loan + fee
+        console2.log("5. PROFIT kept (USDC)  :", (USDC.balanceOf(address(this)) - amount - premium) / 1e6);
         return true;                                     // leftover USDC here = pure profit
     }
     /// One swap through a router (Uniswap or Sushi); returns how many output tokens we got.

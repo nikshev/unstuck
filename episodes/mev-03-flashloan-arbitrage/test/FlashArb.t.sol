@@ -11,22 +11,24 @@ contract FlashArbTest is Test {
     FlashArb arb;
 
     function setUp() public {
-        vm.createSelectFork(vm.envString("ETH_RPC_URL"), 20_000_000);
-        deal(address(WETH), whale, 500 ether);
+        vm.createSelectFork(vm.envString("ETH_RPC_URL"), 20_000_000); // real mainnet, pinned block
+        deal(address(WETH), whale, 500 ether);                         // give a whale some WETH
         vm.startPrank(whale);
         WETH.approve(address(UNI), type(uint).max);
         address[] memory path = new address[](2);
         path[0] = address(WETH); path[1] = address(USDC);
-        UNI.swapExactTokensForTokens(300 ether, 0, path, whale, block.timestamp); // WETH cheap on Uni
+        UNI.swapExactTokensForTokens(300 ether, 0, path, whale, block.timestamp); // dump WETH -> cheap on Uni
         vm.stopPrank();
-        arb = new FlashArb();
+        arb = new FlashArb();                                          // deploy our arb, holding nothing
     }
 
     function test_flashArb() public {
-        assertEq(USDC.balanceOf(address(arb)), 0);          // ZERO starting capital
-        arb.startArb(50_000e6);
-        uint256 profit = USDC.balanceOf(address(arb));
-        console2.log("profit (USDC) with 0 capital:", profit / 1e6);
-        assertGt(profit, 0);
+        console2.log("--- flash-loan arbitrage, ZERO capital ---");
+        console2.log("our USDC balance at start:", USDC.balanceOf(address(arb)) / 1e6); // 0
+        assertEq(USDC.balanceOf(address(arb)), 0);          // prove we start with ZERO capital
+        arb.startArb(50_000e6);                             // borrow 50k USDC, arb it, repay — one tx
+        uint256 profit = USDC.balanceOf(address(arb));      // whatever's left is pure profit
+        console2.log("our USDC balance at end:  ", profit / 1e6);
+        assertGt(profit, 0);                                // we made money from nothing
     }
 }

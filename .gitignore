@@ -7,3 +7,7 @@ keypair*.json
 *.keypair.json
 .env
 .DS_Store
+out/
+cache/
+lib/
+broadcast/

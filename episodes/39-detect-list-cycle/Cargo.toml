@@ -1,0 +1,8 @@
+[package]
+name = "detect-cycle"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "detect-cycle"
+path = "src/main.rs"

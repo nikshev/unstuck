@@ -1,0 +1,7 @@
+[package]
+name = "merge-lists"
+version = "0.1.0"
+edition = "2021"
+[[bin]]
+name = "merge-lists"
+path = "src/main.rs"

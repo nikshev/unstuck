@@ -2,7 +2,7 @@
 
 ## 🎬 Watch
 
-🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+📅 **Premieres Jul 18, 2026.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
 
 > `AttributeError: 'NoneType' object has no attribute X` means the value is **None**, and you called a
 > method on it. The crash line is a red herring — trace the None **up** to where it was born. The #1

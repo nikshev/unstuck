@@ -2,7 +2,7 @@
 
 ## 🎬 Watch
 
-🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+📅 **Premieres Jul 19, 2026.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
 
 A vault drained by a single word: `unchecked`. Since Solidity 0.8, arithmetic **reverts** on
 over/underflow automatically — for free. But an `unchecked { }` block turns that safety back off to

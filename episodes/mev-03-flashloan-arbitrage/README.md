@@ -2,7 +2,7 @@
 
 ## 🎬 Watch
 
-🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+🎬 **[▶ Watch on YouTube](https://youtu.be/FGGn-r-Xuew)** — live now.
 
 In Ep 2 we arbitraged Uniswap vs SushiSwap — but needed $50k of our own. Now we do the **exact same
 trade with zero capital**, by borrowing the money with an **Aave v3 flash loan** and repaying it in

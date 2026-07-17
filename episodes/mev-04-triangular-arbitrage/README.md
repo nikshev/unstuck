@@ -2,7 +2,7 @@
 
 ## 🎬 Watch
 
-🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+📅 **Premieres Jul 18, 2026.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
 
 Arbitrage isn't only "buy low on one exchange, sell high on another." It can be a **loop**: send one
 token through three pools — WETH → USDC → DAI → WETH — and come out with **more WETH than you started**,

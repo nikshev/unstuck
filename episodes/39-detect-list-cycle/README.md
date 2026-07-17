@@ -1,6 +1,6 @@
 # Rust Coding Challenges — Ep 27: Detect a Linked List Cycle (Floyd's Tortoise & Hare)
 
-🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA).
+📅 **Premieres Jul 19, 2026.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
 
 How do you find a loop in a linked list without marking a single node? **Two runners, one twice as
 fast.** Floyd's tortoise & hare walks a slow pointer one step and a fast pointer two — on a straight

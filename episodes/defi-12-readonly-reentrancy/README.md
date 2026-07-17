@@ -2,7 +2,7 @@
 
 ## 🎬 Watch
 
-🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+🎬 **[▶ Watch on YouTube](https://youtu.be/dED3r2gxdjM)** — live now.
 
 One of the sneakiest bugs in DeFi — and the one most developers get wrong. A vault adds the usual
 reentrancy guard and feels safe, but a harmless-looking **`view`** function tells a lie at exactly the

@@ -1,6 +1,6 @@
 # Dev Errors, Fixed — Ep 32: Python `RecursionError: maximum recursion depth exceeded`
 
-🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA).
+📅 **Premieres Jul 20, 2026.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
 
 `RecursionError` means your function calls itself and never stops — or it's correct but simply too deep
 for Python's call stack (~1000 frames).

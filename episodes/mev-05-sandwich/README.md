@@ -2,7 +2,7 @@
 
 ## 🎬 Watch
 
-🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+📅 **Premieres Jul 20, 2026.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
 
 The most common attack in MEV, built on the **real** Uniswap v2 WETH/USDC pool. A searcher sees a
 whale's big swap sitting in the public mempool, **front-runs** it (buying first, pushing the price up),

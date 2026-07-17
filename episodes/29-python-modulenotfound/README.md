@@ -2,7 +2,7 @@
 
 ## 🎬 Watch
 
-🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+🎬 **[▶ Watch on YouTube](https://youtu.be/UsbyxozkICc)** — live now.
 
 > The most common Python beginner error — and it almost never means the module is broken. It means
 > Python looked for it on its path (`sys.path`) and didn't find it. Reproduce it, read it, fix it.

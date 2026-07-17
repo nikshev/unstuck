@@ -2,7 +2,7 @@
 
 ## 🎬 Watch
 
-🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+📅 **Premieres Jul 17, 2026.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
 
 A token that got drained by its own **burn** function. AIDC looked like a normal fee-on-transfer coin
 on BNB Chain — until its burn logic destroyed tokens **out of the liquidity pool** instead of the

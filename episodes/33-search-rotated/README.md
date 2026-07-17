@@ -2,7 +2,7 @@
 
 ## 🎬 Watch
 
-🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+🎬 **[▶ Watch on YouTube](https://youtu.be/mZy7bks1vsg)** — live now.
 
 > A sorted array, rotated by some unknown amount. Plain binary search breaks — but at any midpoint
 > **one half is always sorted**. Find which, check if the target is in it, and narrow. Still **O(log n)**.

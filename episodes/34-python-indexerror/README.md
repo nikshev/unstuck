@@ -2,7 +2,7 @@
 
 ## 🎬 Watch
 
-🔜 **Video coming soon.** [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA) to catch it.
+🎬 **[▶ Watch on YouTube](https://youtu.be/uVRH8CEGlD0)** — live now.
 
 > A list of length `n` has indexes `0 … n-1`. Reach for one past the end and Python stops with
 > `IndexError: list index out of range`. Almost always an off-by-one.

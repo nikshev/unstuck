@@ -1,0 +1,8 @@
+[package]
+name = "buy-sell-stock"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "buy-sell-stock"
+path = "src/main.rs"

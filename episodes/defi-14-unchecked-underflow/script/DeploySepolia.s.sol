@@ -1,6 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 import "forge-std/Script.sol";
+
+// -- Proven on Sepolia (public Etherscan) via a Chainstack node -------------------------------
+//   vault 0xe93b813f28fa87d587bc1d0d553cebf1a501b3aa
+//   1 DRAIN  https://sepolia.etherscan.io/tx/0x0c0be41fbb404d39a547028912a4fd1b4ad40b785c30c278a76b4745fff9cbc5  (Success, vault drained to 0)
+//   2 FIXED  https://sepolia.etherscan.io/tx/0xd2577f1509aa82b46b57850cd9438cf59212a2cbf4b14f0019f36e01d4ad1fde  (Fail, execution reverted, arithmetic underflow)
+// --------------------------------------------------------------------------------------------
+
 import {MockWETH} from "../src/MockWETH.sol";
 import {ClaimVaultBuggy} from "../src/ClaimVaultBuggy.sol";
 import {ClaimVaultFixed} from "../src/ClaimVaultFixed.sol";

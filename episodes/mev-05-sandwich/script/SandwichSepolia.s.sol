@@ -3,6 +3,14 @@ pragma solidity ^0.8.20;
 
 import "forge-std/Script.sol";
 
+// -- Proven on Sepolia (public Etherscan) via a Chainstack node -------------------------------
+//   pair 0x86cf62a40ba014de5578ed7a385191e5399ac8a2
+//   1 FRONT   https://sepolia.etherscan.io/tx/0x44e2b1cb93e0f7416f402f9440a61a3a5e5f523b30586e7dc583f7285ebba29b  (front-run buy)
+//   2 VICTIM  https://sepolia.etherscan.io/tx/0xa942a1d87a8ad531afe369e4756a9e2d8ca85286249e29525a7c5a687c49e822  (2M USDC -> 463.75 WETH)
+//   3 BACK    https://sepolia.etherscan.io/tx/0x921d74cd2b830631512959bf715d3f36b0778d5b85518905d29d7083bc6c17fd  (back-run sell)
+// --------------------------------------------------------------------------------------------
+
+
 /// Minimal ERC20 (emits Transfer/Approval so Etherscan shows the token flows).
 contract Mock20 {
     string public name; string public symbol; uint8 public decimals;

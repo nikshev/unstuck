@@ -1,6 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 import "forge-std/Script.sol";
+
+// -- Proven on Sepolia (public Etherscan) via a Chainstack node -------------------------------
+//   pair (vuln)   0x2428f292b432e9d70bdfe08abc5394a40e8a98d7
+//   token (fixed) 0xbcd321eaee00a80c68e819f4372e6a78f70bb515
+//   1 DRAIN  https://sepolia.etherscan.io/tx/0x4192630216d13168375942e75f7f898da4eb600c5ec9010785992cd322880640  (Success, WBNB reserve 100 -> 50)
+//   2 FIXED  https://sepolia.etherscan.io/tx/0x3ef9f033481976acd7e2052b2d425b9fb6e0d94e4b5b88f5a76c57a429fafc5e  (Fail, execution reverted 'bal')
+// --------------------------------------------------------------------------------------------
+
 import {MockWBNB} from "../src/MockWBNB.sol";
 import {Pair} from "../src/Pair.sol";
 import {AidcTokenBuggy} from "../src/AidcTokenBuggy.sol";

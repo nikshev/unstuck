@@ -1,6 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 import {Script, console2} from "forge-std/Script.sol";
+
+// -- Proven on Sepolia (public Etherscan) via a Chainstack node -------------------------------
+//   attacker (vuln)  0x5f306fd2522a4e8d73477647c833fe2e6c5486fe
+//   attacker (fixed) 0x165b984de1c379cddea30e134a2a0c3c73f2f44a
+//   1 DRAIN  https://sepolia.etherscan.io/tx/0x722d67befc01b86404b55864e21af66e9d7f91f3e5e35dd781b7f96b21e4b7e5  (Success, 0 -> 0.125 ETH, +0.025)
+//   2 FIXED  https://sepolia.etherscan.io/tx/0xc9aa2dee058864db81b0bfd1760ad74b6fc8f919647351a0fbb536f06d5fc850  (Fail, execution reverted, guarded view)
+// --------------------------------------------------------------------------------------------
+
 import {IVault, Vault, VaultFixed, Seller, Attacker} from "../src/ROReentrancy.sol";
 
 // Deploys the vulnerable + fixed setups to Sepolia at 0.1-ETH scale (the same 100->125 ratio as

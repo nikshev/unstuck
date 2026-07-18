@@ -2,7 +2,7 @@
 
 ## 🎬 Watch
 
-🔔 [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA?sub_confirmation=1) — the whole MEV series, every strategy rebuilt on a real fork.
+📅 **Premieres Jul 22, 2026** — https://youtu.be/eWiVHXVKhuQ · [Subscribe](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA?sub_confirmation=1) to catch it.
 
 The gentle cousin of the sandwich. A searcher does **nothing** to anyone — it waits for a big trade to
 land, knocking one pool's price out of line with the rest, then trades **right after** it (back-running),

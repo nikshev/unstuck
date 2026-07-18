@@ -2,7 +2,7 @@
 
 ## 🎬 Watch
 
-🔔 [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA?sub_confirmation=1) — a DeFi exploit rebuilt **and fixed** every episode.
+📅 **Premieres Jul 21, 2026** — https://youtu.be/bZiQnetGUe4 · [Subscribe](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA?sub_confirmation=1) to catch it.
 
 The very first depositor into a share vault can set a trap for everyone after them. Deposit **1 wei**
 (now you own the whole vault — one share), then **donate** a pile of tokens straight into the vault with a

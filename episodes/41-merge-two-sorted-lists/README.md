@@ -2,7 +2,7 @@
 
 ## 🎬 Watch
 
-🔔 [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA?sub_confirmation=1) — a coding challenge solved in Rust, explained line by line, every episode.
+📅 **Premieres Jul 21, 2026** — https://youtu.be/qulvP7MDbNM · [Subscribe](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA?sub_confirmation=1) to catch it.
 
 Merge two already-sorted linked lists into one sorted list. The recursive solution is a **zipper**:
 compare the two heads, take the smaller one, recurse on the rest. In Rust, `merge` takes **ownership** of

@@ -2,7 +2,7 @@
 
 ## 🎬 Watch
 
-🔔 [Subscribe on YouTube](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA?sub_confirmation=1) — one real dev error, reproduced and fixed at the root, every episode.
+📅 **Premieres Jul 22, 2026** — https://youtu.be/NYSuasbXyGM · [Subscribe](https://www.youtube.com/channel/UC32d5uV5MEC1oMqVaVbQPNA?sub_confirmation=1) to catch it.
 
 `UnboundLocalError: cannot access local variable 'x' where it is not associated with a value`. The
 variable is defined at the top of your file, yet inside a function Python swears it doesn't exist. Why?

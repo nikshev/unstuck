@@ -3,6 +3,15 @@ pragma solidity ^0.8.20;
 
 import "forge-std/Test.sol";
 
+// -- Proven on Sepolia (public Etherscan) via a Chainstack node ------------------------------
+//   A flash loan is ATOMIC: the WHOLE attack is ONE transaction (borrow -> pump -> over-borrow -> repay).
+//   pool 0xed3e69aa89a9d285946ed49402af46f0bb941559   lending 0xc045d21971876acbaf50980e6ca4491c5598270a
+//   attacker 0x00158373ca7191f8eb8d59eb090c1e4d018b3291   flashLender 0x319346033e7b661a78c3ce79adce737ed50675bd
+//   ATTACK  https://sepolia.etherscan.io/tx/0x8fc6c6b146fb95cd74ee735ec6a7a1bc74ab77ced802d033239c8a9125d95077
+//     6 token moves inside that one tx: flash 1M in -> swap 800k -> 79.95 WETH -> deposit -> borrow 1M (drain) -> repay 1M ; keep +200k
+// --------------------------------------------------------------------------------------------
+
+
 /// Minimal ERC20 mock (allowance-free — throwaway demo tokens).
 contract Mock {
     string public name; string public symbol; uint8 public decimals;

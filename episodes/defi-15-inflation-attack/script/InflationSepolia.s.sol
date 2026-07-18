@@ -3,6 +3,14 @@ pragma solidity ^0.8.20;
 
 import "forge-std/Script.sol";
 
+// -- Proven on Sepolia (public Etherscan) via a Chainstack node -------------------------------
+//   vault    0xd2a07bea74183b166972329918e8527bdf202784
+//   1 DONATE  https://sepolia.etherscan.io/tx/0x8ef0955fec4bd75c25031a2b4e63f34d4634776c4da4b56999bcf6f29144bb75
+//   2 VICTIM  https://sepolia.etherscan.io/tx/0x8644b19f788e6a7b4b722d048ff5bc1e2b9eeb315d9fbfac569c4ebc5910e41b  (100 WETH -> 0 shares)
+//   3 REDEEM  https://sepolia.etherscan.io/tx/0x0ec926c6107867adfe80977cb9c91100e795329320c7438ecbffb38358875a7e  (1 share -> 200 WETH = drained)
+// --------------------------------------------------------------------------------------------
+
+
 /// Minimal WETH (emits Transfer so Etherscan shows the token flows).
 contract MockWETH {
     string public name = "Mock WETH"; string public symbol = "mWETH"; uint8 public decimals = 18;

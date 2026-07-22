@@ -10,11 +10,12 @@ interface IMiniPool {
     function collect() external returns (uint256);
 }
 
-/// @notice A stand-in account for the Sepolia capstone, so the passive LP, the JIT searcher and the
-/// trader are DISTINCT on-chain addresses (positions are keyed by msg.sender). Each action is its own
-/// clickable transaction.
+/// @notice A stand-in account so the passive LP and the trader are DISTINCT on-chain addresses
+/// (positions are keyed by msg.sender). Each action is its own clickable transaction.
+/// collect() stores the fee it received in `collected`, so it can be read back on-chain cleanly.
 contract Actor {
     IMiniPool public pool;
+    uint256 public collected;      // fee received on the last collect() -- read this on-chain
     constructor(IMiniPool _pool, IERC20 t0, IERC20 t1) {
         pool = _pool;
         t0.approve(address(_pool), type(uint256).max);
@@ -23,5 +24,5 @@ contract Actor {
     function add(uint256 a) external { pool.addLiquidity(a); }
     function remove(uint256 a) external { pool.removeLiquidity(a); }
     function swap(uint256 a) external { pool.swap(a); }
-    function collect() external returns (uint256) { return pool.collect(); }
+    function collect() external returns (uint256) { collected = pool.collect(); return collected; }
 }

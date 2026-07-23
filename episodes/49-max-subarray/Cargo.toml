@@ -1,0 +1,7 @@
+[package]
+name = "max-subarray"
+version = "0.1.0"
+edition = "2021"
+[[bin]]
+name = "max-subarray"
+path = "src/main.rs"

@@ -20,26 +20,46 @@ export PK="0xYOUR_FUNDED_SEPOLIA_PRIVATE_KEY"
 Every `cast` command in the video is in `reproduce.sh`. Values are in wei (×10^18):
 `100000000000000000000000` = 100,000 tokens.
 
+## Follow the tokens on Etherscan
+
+The lab ERC-20 (`src/MockERC20.sol`) emits the standard **`Transfer`** event, so every
+transaction below shows its full **ERC-20 Tokens Transferred** list on Etherscan — you can
+see exactly which tokens moved, from whom, to whom, and how much. The attack is the clearest:
+one transaction, five transfers, and the third one is the theft.
+
+The attack tx — [`0xbc67c9…41df1f`](https://sepolia.etherscan.io/tx/0xbc67c951197900c1f82a1e197a58179053773102994ae7dd1cd1bd634e41df1f) — reads, in order:
+
+| # | From | To | Amount | Token | What it is |
+|---|------|----|--------|-------|-----------|
+| 1 | Flash Lender | Attacker | 10,000,000 | LP  | flash loan out (no collateral) |
+| 2 | Attacker | Pool | 10,000,000 | LP  | stake it all (~99.99% of the pool) |
+| 3 | **Pool** | **Attacker** | **99,990** | **RWD** | **THE THEFT — almost the whole pot** |
+| 4 | Pool | Attacker | 10,000,000 | LP  | unstake |
+| 5 | Attacker | Flash Lender | 10,000,000 | LP  | repay the loan (same tx) |
+
+On the fixed pool the same five transfers appear, but transfer #3 is **`0` RWD**.
+
 ## The exact transactions shown in the video (Sepolia)
 
-**Act 1 — honest**  · pool `0xc734bF61e30f782298848AB199B15D3cDab1bd04` · RWD `0x4d7a67BA6bE4cEDCbaDb0c257b971fBDC29EC606`
+**Act 1 — honest**  · pool `0xE8bd3b86cde5E8745b9fa08a996c315139B1af65` · RWD `0x73ce1879813c61F7582182D9D36A7e399A8f2495`
 - pot before: `cast call $POOL "rewardReserve()(uint256)"` → `100000000000000000000000` (100,000)
-- Alice stake: [0xfb7cce…372a](https://sepolia.etherscan.io/tx/0xfb7cce556a8b96d720756e52842e3d31e3ed3e3aaeaf0c6dd07448677943372a)
-- Bob stake:   [0xac5b99…7614](https://sepolia.etherscan.io/tx/0xac5b996000789fa04b83a71448f02731fb8c729e9c2a08f9d7b2a281bbd27614)
-- Alice claim: [0x914cb2…c2f84](https://sepolia.etherscan.io/tx/0x914cb25231150f91f33361a5f03d29207818f6817574bd7fc1709636586c2f84) → Alice balance `50000e18` (fair 50%)
+- Alice stake: [0x0278f5…dccbb](https://sepolia.etherscan.io/tx/0x0278f52fe801db816230323311d1e514d0be2b11e2ec32d5bb1b8665854dccbb) — 1,000 LP → pool
+- Bob stake:   [0xfabe35…f8e50](https://sepolia.etherscan.io/tx/0xfabe35671282590d8ad1316b91e73abd4e3390349e0b692be00c0b1cfd4f8e50) — 1,000 LP → pool
+- Alice claim: [0x038949…09ddc4](https://sepolia.etherscan.io/tx/0x0389490109052affe514a151149e13e7263e1ea68e2975a98ab487e5e909ddc4) → pool sends Alice `50000e18` (fair 50%)
 
-**Act 2 — attack**  · pool `0x62C7B6D224F5Ca389E372c51798AF4E047bE1096` · RWD `0x8523320dE62d2384CE1d6B58bd1577201a358E85` · attacker `0x80F3B4A57c27ce681f0939543b0B7c95808BC1ad`
+**Act 2 — attack**  · pool `0x3233F806de6105582fDfEB8E8DB82a9873EF17Df` · RWD `0x6e2812cA752b692be335fE9b90623b19fa160A22` · attacker `0x99577F6ADD247B58C795476ba7BB23D7fB4d99b7`
 - before: pot `100000e18`, attacker `0`
-- attack: [0xbb7b76…ac07f](https://sepolia.etherscan.io/tx/0xbb7b7688f4ef22623c4d04ce2ce03bd82237a7e16187856b9350d30d786ac07f)
+- attack: [0xbc67c9…41df1f](https://sepolia.etherscan.io/tx/0xbc67c951197900c1f82a1e197a58179053773102994ae7dd1cd1bd634e41df1f)
 - after: pot `9999000099990001000` (~10 left), attacker `99990000999900009999000` (~99,990 stolen)
 
-**Act 3 — fixed (time-weighted)**  · pool `0x717f1651562dcEdEaEe9a8e5A0775AE7a0373b3e` · RWD `0x4ada49b42a5f060985197f627f3f75b97b438fec` · attacker `0x3dE6C3a8E2Bb67F70F28987997e8B583728FD475`
-- attack: [0xda4f03…220010](https://sepolia.etherscan.io/tx/0xda4f03d90ff9e226e3f90d4b43ca0888e09e0254eba08abe84b3301410220010)
+**Act 3 — fixed (time-weighted)**  · pool `0xff52eCEFF369ce4702BB17Ec59b4b4eF3Af1d017` · RWD `0x63DEc45F4E0FA0e0AA6b9923D8d62D9498E9aB6C` · attacker `0x52bCC670ec85f075B0c25f4C705c4Af52f574081`
+- attack: [0xeddd12…fed73ab](https://sepolia.etherscan.io/tx/0xeddd12224242e61fd9ec0c6711e687faf157f9901a8d5f67733440c47fed73ab)
 - after: attacker `0` (0 seconds staked = 0 reward), pot `100000e18` untouched
 
 ## Files
 - `src/StakingPool.sol` — the vulnerable, instantaneous-share pool
 - `src/StakingPoolFixed.sol` — the time-weighted fix
 - `src/FlashLender.sol`, `src/Attacker.sol` — the one-tx exploit
+- `src/MockERC20.sol` — the lab token; emits `Transfer`/`Approval` so the flow shows on Etherscan
 - `test/RewardManip.t.sol` — the three acts as Foundry tests (balance-by-balance logs)
 - `script/*Sepolia.s.sol` — the on-chain deploys used above

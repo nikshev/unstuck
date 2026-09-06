@@ -1,0 +1,64 @@
+================================================================================================
+THE CODE — the same write-back, with and without one check
+================================================================================================
+
+  VULNERABLE                              HARDENED
+  ----------------------------            ----------------------------
+  new = u256(balance - amount)            if amount > balance:
+  store(addr, new)                            revert("insufficient")
+                                          store(addr, balance - amount)
+
+  In Solidity 0.8 the compiler inserts that check for you.
+  In a Go precompile below the EVM, nobody does. You write it, or it isn't there.
+
+
+  1. STATE BEFORE  (attacker holds exactly 2 KII)
+    attacker                                                       2,000,000,000,000,000,000
+    victim                                                   900,000,000,000,000,000,000,000
+
+================================================================================================
+2. THE SUBTRACTION — delegate 2 KII + ONE WEI
+================================================================================================
+    balance                                                       2,000,000,000,000,000,000
+  - amount                                                        2,000,000,000,000,000,001
+  = true                                                                                 -1   <- negative. There is no negative.
+  = STORED   115,792,089,237,316,195,423,570,985,008,687,907,853,269,984,665,640,564,039,457,584,007,913,129,639,935
+
+     STATE AFTER
+    attacker  115,792,089,237,316,195,423,570,985,008,687,907,853,269,984,665,640,564,039,457,584,007,913,129,639,935
+    victim                                                   900,000,000,000,000,000,000,000
+
+================================================================================================
+3. "SO WHAT?" — because that number IS the ledger
+================================================================================================
+  Every downstream check reads it and answers honestly:
+
+    require(balance >= 1,000,000,000,000,000,000               )   ->   PASS   can he send 1 KII?
+    require(balance >= 1,000,000,000,000,000,000,000,000       )   ->   PASS   can he send 1,000,000 KII?
+    require(balance >= 1,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000)   ->   PASS   can he send 10^30 KII?
+
+  Nothing is broken. Nothing is bypassed. The check works perfectly
+  and returns the right answer about a number that is a lie.
+
+================================================================================================
+4. "SO WHAT IF YOU SEND IT?" — a transfer is the only op that touches TWO rows
+================================================================================================
+  An impossible number in your own row is not money. To become money it
+  has to move — and the receiving side wraps too, in the other direction.
+
+    victim balance                                                   900,000,000,000,000,000,000,000
+  + incoming          115,792,089,237,316,195,423,570,985,008,687,907,853,269,984,665,640,563,139,457,584,007,913,129,639,936
+  = true sum          115,792,089,237,316,195,423,570,985,008,687,907,853,269,984,665,640,564,039,457,584,007,913,129,639,936   <- over the 2^256 ceiling
+  = STORED                                                                                         0
+
+     STATE AFTER
+    attacker  115,792,089,237,316,195,423,570,985,008,687,907,853,269,984,665,640,564,039,457,584,007,913,129,639,935
+    victim                                                                                 0
+
+  The victim's 900,000 KII is gone from the ledger without a single token
+  being minted or burned. Supply is unchanged. Ownership is not.
+
+  Per Cosmos Labs: no additional tokens were created and total supply
+  remained effectively unchanged. That is exactly what a wrap does — it
+  moves value between rows instead of creating it.
+

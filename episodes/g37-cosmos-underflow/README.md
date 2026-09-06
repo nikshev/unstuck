@@ -60,59 +60,78 @@ require(balance >= 10^30 KII)        -> PASS
 **Nothing was bypassed.** The check is not broken — it ran, did its job, and returned the correct
 answer about a number that is a lie. *You do not need to defeat the guard if you can edit what it reads.*
 
-### 3. "So he resends it. So what?"
+### 3. Why it HAS to be a vesting account
 
-A 78-digit balance in your own row is not money. To become money it has to **move** — and a transfer is
-the only operation that touches two rows. The receiving side wraps too, in the other direction:
+This is the piece that makes the rest possible:
 
-```
-  victim balance   900,000,000,000,000,000,000,000
-+ incoming         115,792,089,237,316,195,423,…,639,936
-= true sum         over the 2^256 ceiling
-= STORED           0
-```
+| | knows |
+|---|---|
+| **EVM StateDB** | ONE number — `spendable` |
+| **SDK vesting account** | TWO numbers — `spendable` + `locked` |
 
-### 4. "OK, the victim is at zero. What do I GET?"
+`x/staking` and the staking precompile both let you delegate the **locked** portion too. So the amount
+you may delegate can be **larger than the number the EVM tracks**. That gap is the entire vulnerability
+— and it is why the attacker pre-computed a contract address and converted it to a vesting account
+*before* deploying. On an ordinary account those two numbers are equal and step 1 simply fails.
 
-**Nothing — if it stopped there.** Destroying someone else's row does not pay you. This is the question
-the first cut of the video failed to answer, and the answer changes the mechanism:
+### 4. 900,000 → 0 and 2 → 900,000, derived
 
-KiiChain's post-mortem describes a **debit / credit pair**. The same underflowed delegation
-*"triggers a debit of KII from a victim address and later records a credit of the same amount to the
-attacker-controlled vesting/helper address."*
+He sends **exactly `S = 2^256 − V`**. Not a round number — a chosen one.
 
 ```
-victim     900,000 KII  ->  0
-attacker         2 KII  ->  900,000 KII     <- real, spendable tokens
+VICTIM SIDE      V + S
+    V     900,000,000,000,000,000,000,000
+  + S     115,792,089,237,316,…,563,139,457,584,007,913,129,639,936
+  =       115,792,089,237,316,…,564,039,457,584,007,913,129,639,936   <- exactly 2^256
+  STORED  0
+
+ATTACKER SIDE    A − S
+    A     115,792,089,237,316,…,564,039,457,584,007,913,129,639,935
+  − S     115,792,089,237,316,…,563,139,457,584,007,913,129,639,936
+  STORED  899,999,999,999,999,999,999,999                            = 900,000 KII
 ```
 
-Value **moved**. Nothing was minted or burned — which is exactly why Cosmos Labs could report supply as
-unchanged. Repeated **18 times** against different targets → **148,326,583.15 KII**.
+The identities:
 
-### 5. And *this* is the payday
+```
+(2^256 − 1) − (2^256 − V)  =  V − 1     he ends up with the VICTIM'S balance
+     V      + (2^256 − V)  =  2^256 = 0  she ends up with nothing
+```
 
-Even that is not money yet: those tokens sit on a chain run by the people he just robbed.
+### 5. What "they cancel out" means
+
+```
+HIS dial rolled BACKWARD past 0    -> the machine INVENTED  + 2^256
+HER dial rolled FORWARD past top   -> the machine DESTROYED − 2^256
+                                      ---------------------------------
+                                                                     0
+```
+
+Same invented amount: created once, destroyed once, in the same transaction. That is why the books
+still add up, no alarm fires, and supply is genuinely unchanged. Strip the two phantoms away and what
+is left underneath is **an ordinary transfer of V from her to him** — the phantoms were only the
+mechanism that made the ledger willing to authorise it.
+
+### 6. And *this* is the payday
+
+Those tokens still sit on a chain run by the people he just robbed.
 
 | # | step | amount |
 |---|---|---|
-| 1 | helper address → attacker's primary KiiChain address | a second EVM tx to the same helper contract |
+| 1 | helper address → attacker's primary KiiChain address | a second EVM tx |
 | 2 | **bridge OUT via Hyperlane → BNB Smart Chain** | 67,597,997.87 KII (45.6%) |
 | 3 | **sell on PancakeSwap** | 64,597,997.87 KII into the pool |
 | 4 | deposit to a CEX | 3,000,000 KII → KuCoin |
 | 5 | **REALISED** | **≈ $1,600,000** |
 
-Note who ultimately paid: not only the debited accounts, but whoever was providing liquidity in that
-PancakeSwap pool and ended up holding 64M freshly worthless tokens.
+Repeated **18×** against different targets → **148,326,583.15 KII**.
 
 ### The proof that selling is the real bottleneck
 
-KiiChain halted at **block 9355723** (22:50:58 UTC). **80,728,575.06 KII — 54.4% of the theft — never
-left the chain** and is still frozen in the attacker's own addresses.
-
-Same exploit. Same balances. The half he had not **sold** was worth nothing.
-
-KiiChain's fix afterwards was exactly there: a rate limiter on the Hyperlane warp routes, capping egress
-at **10M KII per rolling 24 hours**.
+KiiChain halted at **block 9355723** (22:50:58 UTC). **80,728,575.06 KII — 54.4% — never left the
+chain** and is still frozen in the attacker's own addresses. Same exploit, same balances; the half he
+had not **sold** was worth nothing. KiiChain's fix landed exactly there: a **10M KII / 24h** egress cap
+on the Hyperlane warp routes.
 
 ## Sources
 

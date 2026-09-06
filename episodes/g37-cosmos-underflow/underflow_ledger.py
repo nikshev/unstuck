@@ -1,96 +1,97 @@
 #!/usr/bin/env python3
-"""Why "it subtracted past zero" is not a rounding error — it rewrites the ledger.
+"""900,000 -> 0 and 2 -> 900,000, step by step, with the arithmetic shown.
 
-Models the SHAPE of the Cosmos EVM staking-precompile defect: a balance write-back done in
-unsigned 256-bit arithmetic without a check. This is not Cosmos source; it is the minimum
-code needed to show what the machine actually believes afterwards.
+Models the SHAPE of the Cosmos EVM defect chain. Not Cosmos source — the minimum code
+needed to show why each number lands where it lands.
+
+Mechanism per Cosmos Labs' post-mortem:
+  * the EVM StateDB tracks only an account's SPENDABLE balance
+  * a vesting account in SDK state holds spendable AND locked
+  * x/staking and the staking precompile both allow the LOCKED portion to be delegated
+  * so a vesting account can delegate MORE than its spendable balance, and the
+    post-delegation write-back subtracts the full amount from the smaller figure, unchecked
 """
-MAX = (1 << 256) - 1
-def u256(x: int) -> int:
-    """Unsigned 256-bit wrap — exactly what the machine does, no error, no exception."""
-    return x & MAX
+MAX = 1 << 256
+def u256(x): return x % MAX          # what the machine does: wrap, silently
 
-ONE_KII = 10**18
-ledger = {"attacker": 2 * ONE_KII, "victim": 900_000 * ONE_KII}
+ONE = 10**18
+def kii(x): return f"{x/ONE:,.0f} KII" if x % ONE == 0 else f"{x:,} akii"
 
-def show(title):
-    print(f"\n  {title}")
-    for who, bal in ledger.items():
-        print(f"    {who:<9} {bal:>78,}")
-
-print("=" * 96)
-print("THE CODE — the same write-back, with and without one check")
-print("=" * 96)
+print("=" * 78)
+print("STEP 0 — why it has to be a VESTING account")
+print("=" * 78)
 print("""
-  VULNERABLE                              HARDENED
-  ----------------------------            ----------------------------
-  new = u256(balance - amount)            if amount > balance:
-  store(addr, new)                            revert("insufficient")
-                                          store(addr, balance - amount)
+  EVM StateDB           knows ONE number:   spendable
+  SDK vesting account   holds TWO numbers:  spendable + locked
+
+  x/staking and the staking precompile let you delegate the LOCKED part too.
+  So the amount you may delegate can be LARGER than the number the EVM tracks.
+  That gap is the whole vulnerability. A normal account cannot do this.
 """)
-print("  In Solidity 0.8 the compiler inserts that check for you.")
-print("  In a Go precompile below the EVM, nobody does. You write it, or it isn't there.\n")
+spendable = 2 * ONE
+locked    = 50 * ONE
+print(f"  attacker's vesting account:  spendable = {kii(spendable)}   locked = {kii(locked)}")
+print(f"  EVM StateDB sees only:       {spendable:,} akii\n")
 
-show("1. STATE BEFORE  (attacker holds exactly 2 KII)")
+print("=" * 78)
+print("STEP 1 — delegate ONE WEI more than spendable")
+print("=" * 78)
+delegated = spendable + 1
+print(f"  delegate  {delegated:,} akii   (2 KII + 1 wei — allowed, the locked part covers it)\n")
+print("  the post-delegation write-back does:      spendable - delegated")
+print(f"    {spendable:>78,}")
+print(f"  - {delegated:>78,}")
+print(f"  = {spendable - delegated:>78,}   <- there is no -1 in a uint256")
+attacker = u256(spendable - delegated)
+print(f"  = {attacker:>78,}   <- STORED  (2^256 - 1)\n")
 
-print("\n" + "=" * 96)
-print("2. THE SUBTRACTION — delegate 2 KII + ONE WEI")
-print("=" * 96)
-amount = 2 * ONE_KII + 1
-bal = ledger["attacker"]
-print(f"    balance  {bal:>78,}")
-print(f"  - amount   {amount:>78,}")
-print(f"  = true     {bal - amount:>78,}   <- negative. There is no negative.")
-ledger["attacker"] = u256(bal - amount)
-print(f"  = STORED   {ledger['attacker']:>78,}")
+print("=" * 78)
+print("STEP 2 — the transfer that swaps the two balances")
+print("=" * 78)
+victim = 900_000 * ONE
+print(f"  victim's real balance V = {victim:,} akii  ({kii(victim)})\n")
+send = MAX - victim
+print("  the attacker sends EXACTLY  2^256 - V.  Not a round number - a chosen one.")
+print(f"  send S = {send:,}\n")
+print("  VICTIM SIDE:      V + S")
+print(f"    {victim:>78,}")
+print(f"  + {send:>78,}")
+print(f"  = {victim + send:>78,}   <- exactly 2^256")
+victim_after = u256(victim + send)
+print(f"  = {victim_after:>78,}   <- STORED\n")
+print("  ATTACKER SIDE:    A - S")
+print(f"    {attacker:>78,}")
+print(f"  - {send:>78,}")
+attacker_after = u256(attacker - send)
+print(f"  = {attacker_after:>78,}   <- STORED\n")
 
-show("   STATE AFTER")
+print("=" * 78)
+print("STEP 3 — read the result")
+print("=" * 78)
+print(f"  victim    {kii(victim):>16}  ->  {victim_after:,}")
+print(f"  attacker  {'2^256 - 1':>16}  ->  {attacker_after:,} akii   = {attacker_after/ONE:,.0f} KII\n")
+print(f"  (2^256 - 1) - (2^256 - V)  =  V - 1     the attacker is left with the VICTIM'S balance")
+print(f"       V     + (2^256 - V)   =  2^256 = 0  the victim is left with nothing\n")
+print("  One transfer. Both sides wrap, in opposite directions, and they NET OUT.")
+print("  The fake 78-digit number is consumed; real tokens take its place.")
+print("  Nothing minted, nothing burned -> total supply unchanged, exactly as reported.\n")
+print(f"  KiiChain: repeated 18 times against different targets = 148,326,583.15 KII")
 
-print("\n" + "=" * 96)
-print('3. "SO WHAT?" — because that number IS the ledger')
-print("=" * 96)
-print("  Every downstream check reads it and answers honestly:\n")
-for label, ask in (("can he send 1 KII?", ONE_KII),
-                   ("can he send 1,000,000 KII?", 1_000_000 * ONE_KII),
-                   ("can he send 10^30 KII?", 10**30 * ONE_KII)):
-    ok = ledger["attacker"] >= ask
-    print(f"    require(balance >= {ask:<40,})   ->   {'PASS' if ok else 'FAIL'}   {label}")
-print("\n  Nothing is broken. Nothing is bypassed. The check works perfectly")
-print("  and returns the right answer about a number that is a lie.\n")
+print("=" * 78)
+print('STEP 4 — what "they cancel out" actually means')
+print("=" * 78)
+print("""
+  HIS dial rolled BACKWARD past 0   -> jumped to the top
+     the machine INVENTED  + 2^256   that do not exist
 
-print("=" * 96)
-print('4. "OK, THE VICTIM IS AT ZERO. WHAT DO I GET?"')
-print("=" * 96)
-print("  Nothing — if it stopped there. A wrapped balance in your own row is not money,")
-print("  and destroying someone else's row does not pay you either.")
-print()
-print("  What KiiChain's post-mortem actually describes is a DEBIT/CREDIT PAIR:")
-print("  the same underflowed delegation debits a victim address AND credits the")
-print("  attacker's helper address with the same amount. Value moves, it is not burned.\n")
-STOLEN = 900_000 * ONE_KII
-ledger["victim"]   = u256(ledger["victim"] - STOLEN)
-ledger["attacker"] = STOLEN          # the helper row now holds REAL, spendable KII
-show("   LEDGER AFTER ONE ROUND (attacker row = real tokens, not a wrapped number)")
-print(f"\n  KiiChain: this exact workflow was repeated 18 times against different targets.")
-print(f"  Total moved: 148,326,583.15 KII\n")
+  HER dial rolled FORWARD past top  -> fell to 0
+     the machine DESTROYED - 2^256   that do not exist
 
-print("=" * 96)
-print("5. AND *THIS* IS THE PAYDAY — the part that happens off this chain")
-print("=" * 96)
-steps = [
-  ("helper address -> attacker's primary KiiChain address", "a second EVM tx to the same helper contract"),
-  ("bridge OUT via Hyperlane to BNB Smart Chain",           "67,597,997.87 KII  (45.6%)"),
-  ("sell on PancakeSwap",                                   "64,597,997.87 KII into the pool"),
-  ("deposit to a CEX",                                      "3,000,000 KII to a KuCoin address"),
-  ("REALISED",                                              "about $1,600,000"),
-]
-for a,b in steps:
-    print(f"    {a:<52} {b}")
-print()
-print("  Inflated KII on KiiChain is a number in a database the victims' own chain controls.")
-print("  It only becomes money once it is somewhere that chain cannot reach, sold to")
-print("  somebody who pays in an asset nobody can freeze.")
-print()
-print("  Proof that this is the real bottleneck: KiiChain halted at block 9355723 and")
-print("  80,728,575.06 KII - 54.4% of the theft - never left the chain and is still frozen.")
-print("  Same exploit, same balances. The half that had not been SOLD yet was worth nothing.\n")
+     + 2^256  -  2^256  =  0
+
+  Same invented amount: created once, destroyed once, in the same transaction.
+  That is why the chain's books still add up and no alarm fires.
+
+  Take the two phantoms away and look at what is left underneath:
+  an ordinary transfer of V, from her account to his. That is all that happened.
+""")

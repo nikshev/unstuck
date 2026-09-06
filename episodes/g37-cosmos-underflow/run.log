@@ -1,77 +1,76 @@
-================================================================================================
-THE CODE — the same write-back, with and without one check
-================================================================================================
+==============================================================================
+STEP 0 — why it has to be a VESTING account
+==============================================================================
 
-  VULNERABLE                              HARDENED
-  ----------------------------            ----------------------------
-  new = u256(balance - amount)            if amount > balance:
-  store(addr, new)                            revert("insufficient")
-                                          store(addr, balance - amount)
+  EVM StateDB           knows ONE number:   spendable
+  SDK vesting account   holds TWO numbers:  spendable + locked
 
-  In Solidity 0.8 the compiler inserts that check for you.
-  In a Go precompile below the EVM, nobody does. You write it, or it isn't there.
+  x/staking and the staking precompile let you delegate the LOCKED part too.
+  So the amount you may delegate can be LARGER than the number the EVM tracks.
+  That gap is the whole vulnerability. A normal account cannot do this.
 
+  attacker's vesting account:  spendable = 2 KII   locked = 50 KII
+  EVM StateDB sees only:       2,000,000,000,000,000,000 akii
 
-  1. STATE BEFORE  (attacker holds exactly 2 KII)
-    attacker                                                       2,000,000,000,000,000,000
-    victim                                                   900,000,000,000,000,000,000,000
+==============================================================================
+STEP 1 — delegate ONE WEI more than spendable
+==============================================================================
+  delegate  2,000,000,000,000,000,001 akii   (2 KII + 1 wei — allowed, the locked part covers it)
 
-================================================================================================
-2. THE SUBTRACTION — delegate 2 KII + ONE WEI
-================================================================================================
-    balance                                                       2,000,000,000,000,000,000
-  - amount                                                        2,000,000,000,000,000,001
-  = true                                                                                 -1   <- negative. There is no negative.
-  = STORED   115,792,089,237,316,195,423,570,985,008,687,907,853,269,984,665,640,564,039,457,584,007,913,129,639,935
+  the post-delegation write-back does:      spendable - delegated
+                                                         2,000,000,000,000,000,000
+  -                                                      2,000,000,000,000,000,001
+  =                                                                             -1   <- there is no -1 in a uint256
+  = 115,792,089,237,316,195,423,570,985,008,687,907,853,269,984,665,640,564,039,457,584,007,913,129,639,935   <- STORED  (2^256 - 1)
 
-     STATE AFTER
-    attacker  115,792,089,237,316,195,423,570,985,008,687,907,853,269,984,665,640,564,039,457,584,007,913,129,639,935
-    victim                                                   900,000,000,000,000,000,000,000
+==============================================================================
+STEP 2 — the transfer that swaps the two balances
+==============================================================================
+  victim's real balance V = 900,000,000,000,000,000,000,000 akii  (900,000 KII)
 
-================================================================================================
-3. "SO WHAT?" — because that number IS the ledger
-================================================================================================
-  Every downstream check reads it and answers honestly:
+  the attacker sends EXACTLY  2^256 - V.  Not a round number - a chosen one.
+  send S = 115,792,089,237,316,195,423,570,985,008,687,907,853,269,984,665,640,563,139,457,584,007,913,129,639,936
 
-    require(balance >= 1,000,000,000,000,000,000               )   ->   PASS   can he send 1 KII?
-    require(balance >= 1,000,000,000,000,000,000,000,000       )   ->   PASS   can he send 1,000,000 KII?
-    require(balance >= 1,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000)   ->   PASS   can he send 10^30 KII?
+  VICTIM SIDE:      V + S
+                                                   900,000,000,000,000,000,000,000
+  + 115,792,089,237,316,195,423,570,985,008,687,907,853,269,984,665,640,563,139,457,584,007,913,129,639,936
+  = 115,792,089,237,316,195,423,570,985,008,687,907,853,269,984,665,640,564,039,457,584,007,913,129,639,936   <- exactly 2^256
+  =                                                                              0   <- STORED
 
-  Nothing is broken. Nothing is bypassed. The check works perfectly
-  and returns the right answer about a number that is a lie.
+  ATTACKER SIDE:    A - S
+    115,792,089,237,316,195,423,570,985,008,687,907,853,269,984,665,640,564,039,457,584,007,913,129,639,935
+  - 115,792,089,237,316,195,423,570,985,008,687,907,853,269,984,665,640,563,139,457,584,007,913,129,639,936
+  =                                                899,999,999,999,999,999,999,999   <- STORED
 
-================================================================================================
-4. "OK, THE VICTIM IS AT ZERO. WHAT DO I GET?"
-================================================================================================
-  Nothing — if it stopped there. A wrapped balance in your own row is not money,
-  and destroying someone else's row does not pay you either.
+==============================================================================
+STEP 3 — read the result
+==============================================================================
+  victim         900,000 KII  ->  0
+  attacker         2^256 - 1  ->  899,999,999,999,999,999,999,999 akii   = 900,000 KII
 
-  What KiiChain's post-mortem actually describes is a DEBIT/CREDIT PAIR:
-  the same underflowed delegation debits a victim address AND credits the
-  attacker's helper address with the same amount. Value moves, it is not burned.
+  (2^256 - 1) - (2^256 - V)  =  V - 1     the attacker is left with the VICTIM'S balance
+       V     + (2^256 - V)   =  2^256 = 0  the victim is left with nothing
 
+  One transfer. Both sides wrap, in opposite directions, and they NET OUT.
+  The fake 78-digit number is consumed; real tokens take its place.
+  Nothing minted, nothing burned -> total supply unchanged, exactly as reported.
 
-     LEDGER AFTER ONE ROUND (attacker row = real tokens, not a wrapped number)
-    attacker                                                 900,000,000,000,000,000,000,000
-    victim                                                                                 0
+  KiiChain: repeated 18 times against different targets = 148,326,583.15 KII
+==============================================================================
+STEP 4 — what "they cancel out" actually means
+==============================================================================
 
-  KiiChain: this exact workflow was repeated 18 times against different targets.
-  Total moved: 148,326,583.15 KII
+  HIS dial rolled BACKWARD past 0   -> jumped to the top
+     the machine INVENTED  + 2^256   that do not exist
 
-================================================================================================
-5. AND *THIS* IS THE PAYDAY — the part that happens off this chain
-================================================================================================
-    helper address -> attacker's primary KiiChain address a second EVM tx to the same helper contract
-    bridge OUT via Hyperlane to BNB Smart Chain          67,597,997.87 KII  (45.6%)
-    sell on PancakeSwap                                  64,597,997.87 KII into the pool
-    deposit to a CEX                                     3,000,000 KII to a KuCoin address
-    REALISED                                             about $1,600,000
+  HER dial rolled FORWARD past top  -> fell to 0
+     the machine DESTROYED - 2^256   that do not exist
 
-  Inflated KII on KiiChain is a number in a database the victims' own chain controls.
-  It only becomes money once it is somewhere that chain cannot reach, sold to
-  somebody who pays in an asset nobody can freeze.
+     + 2^256  -  2^256  =  0
 
-  Proof that this is the real bottleneck: KiiChain halted at block 9355723 and
-  80,728,575.06 KII - 54.4% of the theft - never left the chain and is still frozen.
-  Same exploit, same balances. The half that had not been SOLD yet was worth nothing.
+  Same invented amount: created once, destroyed once, in the same transaction.
+  That is why the chain's books still add up and no alarm fires.
+
+  Take the two phantoms away and look at what is left underneath:
+  an ordinary transfer of V, from her account to his. That is all that happened.
 

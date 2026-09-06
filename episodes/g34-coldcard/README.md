@@ -64,6 +64,50 @@ measurement, not something this code derives — but it lands exactly where "32 
 
 **Designed: 128 bits. Actual: ~40. Lost: 88 — that is 88 halvings of the attacker's work.**
 
+## One device, counted start to finish
+
+`worked_example.py` walks a single (illustrative) device so the ~40 stops being an abstraction:
+
+```
+THE DEVICE
+  chip UID (low 32 bits) : 0x7C3A19E4
+  set up                 : 14 March 2023, between 19:00 and 20:00
+  Nothing here is secret. The owner did nothing wrong at any point.
+
+WHAT THE ATTACKER MUST GUESS
+  1. Which chip made it?          4,294,967,296  possible UIDs   (2^32)
+  2. Exactly when was it set up?            256  timer states    (2^8)
+
+  4,294,967,296  x  256  =  1,099,511,627,776  =  2^40
+
+AND THEN WE GET THIS PICTURE
+  what he actually has to search :                    1,099,511,627,776
+  what the DESIGN promised       : 340,282,366,920,938,463,463,374,607,431,768,211,456
+
+  on a free Colab T4 (54,443,902,652 ops/sec):
+     2^40  ->  20.2 seconds
+     2^128 ->  1.98e+20 years
+```
+
+The UID and the setup window are made up. **The arithmetic is the real part** — it is how a
+specific attacker's knowledge turns into a specific number of guesses.
+
+### Measured on a free Colab T4 (notebook section 5)
+
+```
+Tesla T4, 15360 MiB
+walked 67,108,864 candidates in 1.2 ms
+rate: 54,443,902,652 candidates/second
+
+2^40  at this rate: 20.2 seconds
+2^128 at this rate: 1.98e+20 years
+```
+
+⚠️ That loop counts a **cheap** operation, like the vanity-address demo — not a full BIP39 seed
+derivation, which is ~2,000x dearer (measured in [`../g36-40bits`](../g36-40bits)). Read the
+**ratio**, not either absolute time: whatever you multiply both by, 20 seconds stays in the world of
+things that happen and 10^20 years does not.
+
 ## Affected
 
 Coldcard **Mk2 / Mk3**, firmware **4.0.0 – 4.1.9**. Introduced in a March 2021 libngu migration.

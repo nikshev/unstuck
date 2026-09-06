@@ -41,24 +41,37 @@ THE CODE — the same write-back, with and without one check
   and returns the right answer about a number that is a lie.
 
 ================================================================================================
-4. "SO WHAT IF YOU SEND IT?" — a transfer is the only op that touches TWO rows
+4. "OK, THE VICTIM IS AT ZERO. WHAT DO I GET?"
 ================================================================================================
-  An impossible number in your own row is not money. To become money it
-  has to move — and the receiving side wraps too, in the other direction.
+  Nothing — if it stopped there. A wrapped balance in your own row is not money,
+  and destroying someone else's row does not pay you either.
 
-    victim balance                                                   900,000,000,000,000,000,000,000
-  + incoming          115,792,089,237,316,195,423,570,985,008,687,907,853,269,984,665,640,563,139,457,584,007,913,129,639,936
-  = true sum          115,792,089,237,316,195,423,570,985,008,687,907,853,269,984,665,640,564,039,457,584,007,913,129,639,936   <- over the 2^256 ceiling
-  = STORED                                                                                         0
+  What KiiChain's post-mortem actually describes is a DEBIT/CREDIT PAIR:
+  the same underflowed delegation debits a victim address AND credits the
+  attacker's helper address with the same amount. Value moves, it is not burned.
 
-     STATE AFTER
-    attacker  115,792,089,237,316,195,423,570,985,008,687,907,853,269,984,665,640,564,039,457,584,007,913,129,639,935
+
+     LEDGER AFTER ONE ROUND (attacker row = real tokens, not a wrapped number)
+    attacker                                                 900,000,000,000,000,000,000,000
     victim                                                                                 0
 
-  The victim's 900,000 KII is gone from the ledger without a single token
-  being minted or burned. Supply is unchanged. Ownership is not.
+  KiiChain: this exact workflow was repeated 18 times against different targets.
+  Total moved: 148,326,583.15 KII
 
-  Per Cosmos Labs: no additional tokens were created and total supply
-  remained effectively unchanged. That is exactly what a wrap does — it
-  moves value between rows instead of creating it.
+================================================================================================
+5. AND *THIS* IS THE PAYDAY — the part that happens off this chain
+================================================================================================
+    helper address -> attacker's primary KiiChain address a second EVM tx to the same helper contract
+    bridge OUT via Hyperlane to BNB Smart Chain          67,597,997.87 KII  (45.6%)
+    sell on PancakeSwap                                  64,597,997.87 KII into the pool
+    deposit to a CEX                                     3,000,000 KII to a KuCoin address
+    REALISED                                             about $1,600,000
+
+  Inflated KII on KiiChain is a number in a database the victims' own chain controls.
+  It only becomes money once it is somewhere that chain cannot reach, sold to
+  somebody who pays in an asset nobody can freeze.
+
+  Proof that this is the real bottleneck: KiiChain halted at block 9355723 and
+  80,728,575.06 KII - 54.4% of the theft - never left the chain and is still frozen.
+  Same exploit, same balances. The half that had not been SOLD yet was worth nothing.
 

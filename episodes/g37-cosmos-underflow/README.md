@@ -72,8 +72,47 @@ the only operation that touches two rows. The receiving side wraps too, in the o
 = STORED           0
 ```
 
-900,000 KII gone from the ledger. **Nothing minted, nothing burned** — total supply unchanged, which is
-exactly what Cosmos Labs reported. A wrap moves value between rows instead of creating it.
+### 4. "OK, the victim is at zero. What do I GET?"
+
+**Nothing — if it stopped there.** Destroying someone else's row does not pay you. This is the question
+the first cut of the video failed to answer, and the answer changes the mechanism:
+
+KiiChain's post-mortem describes a **debit / credit pair**. The same underflowed delegation
+*"triggers a debit of KII from a victim address and later records a credit of the same amount to the
+attacker-controlled vesting/helper address."*
+
+```
+victim     900,000 KII  ->  0
+attacker         2 KII  ->  900,000 KII     <- real, spendable tokens
+```
+
+Value **moved**. Nothing was minted or burned — which is exactly why Cosmos Labs could report supply as
+unchanged. Repeated **18 times** against different targets → **148,326,583.15 KII**.
+
+### 5. And *this* is the payday
+
+Even that is not money yet: those tokens sit on a chain run by the people he just robbed.
+
+| # | step | amount |
+|---|---|---|
+| 1 | helper address → attacker's primary KiiChain address | a second EVM tx to the same helper contract |
+| 2 | **bridge OUT via Hyperlane → BNB Smart Chain** | 67,597,997.87 KII (45.6%) |
+| 3 | **sell on PancakeSwap** | 64,597,997.87 KII into the pool |
+| 4 | deposit to a CEX | 3,000,000 KII → KuCoin |
+| 5 | **REALISED** | **≈ $1,600,000** |
+
+Note who ultimately paid: not only the debited accounts, but whoever was providing liquidity in that
+PancakeSwap pool and ended up holding 64M freshly worthless tokens.
+
+### The proof that selling is the real bottleneck
+
+KiiChain halted at **block 9355723** (22:50:58 UTC). **80,728,575.06 KII — 54.4% of the theft — never
+left the chain** and is still frozen in the attacker's own addresses.
+
+Same exploit. Same balances. The half he had not **sold** was worth nothing.
+
+KiiChain's fix afterwards was exactly there: a rate limiter on the Hyperlane warp routes, capping egress
+at **10M KII per rolling 24 hours**.
 
 ## Sources
 

@@ -1,0 +1,49 @@
+==============================================================================
+1. TWO DIFFERENT TRANSACTIONS
+==============================================================================
+  TX A — legitimate (this proof really verifies)
+     proof  4234 B   +   script  67 B
+     key:  4,301 bytes   sha256 b7f71a25d87532134e6295cddc216c82…
+
+  TX B — the attack (invalid proof, empty script)
+     proof  4301 B   +   script   0 B
+     key:  4,301 bytes   sha256 b7f71a25d87532134e6295cddc216c82…
+
+==============================================================================
+2. THE CACHE KEY
+==============================================================================
+  identical?   True
+  both are     4,301 bytes
+  same sha256  b7f71a25d87532134e6295cddc216c822ad9b87d…
+
+  Nothing was forged and no cryptography was broken. The boundary between
+  'where the proof ends' and 'where the script begins' is not recorded
+  anywhere — so moving it 67 bytes produces the identical stream.
+
+==============================================================================
+3. WHY THAT IS FATAL HERE
+==============================================================================
+  The lookup happened BEFORE the cryptography:
+
+      if (cache.contains(key)) return true;      <- answers here
+      parse_commitments(...);                    <- never reached
+      secp256k1_rangeproof_verify(...);          <- never reached
+
+  TX A is verified honestly once, and its key is stored. Sixty seconds later
+  TX B arrives, produces the SAME key, hits the cache and is told "already
+  verified" — without one elliptic-curve operation being performed.
+
+==============================================================================
+4. THE FIX — length-prefix every field, then hash
+==============================================================================
+  TX A -> 48d4667a51c839cdf46b4023478883f8245d0e737ef95a2d…
+  TX B -> 829c7c3a4a43e476040b7c773b1d9bec138dfe9f06175a17…
+  identical?   False
+
+  Four bytes of length in front of each field. That is the whole fix:
+  'where does this field end' becomes written down instead of guessed.
+
+  Blockstream shipped it in Elements v23.3.4 as 'hardened range-proof cache keys'.
+  The same fix was merged to master on 1 September — five days before the attack —
+  but no tagged release carrying it had reached a production node.
+

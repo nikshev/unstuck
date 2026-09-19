@@ -1,0 +1,30 @@
+
+==========================================================================
+  EXAMPLE A — a token built to be exited
+==========================================================================
+  [CRITICAL]  UNCAPPED MINT
+     The team can create new tokens at will. Your share can be diluted to nothing,
+     and the new supply can be dumped on the pool you are holding.
+
+  [CRITICAL]  SELL BLOCK / HONEYPOT
+     A per-address or global switch on selling. You can buy, and then find you
+     are the only one who cannot get out. This is what a honeypot is.
+
+  [CRITICAL]  UNBOUNDED FEE
+     A fee the owner can change with no upper bound written into the code.
+     A 100% sell tax is a rug that does not even need to move the liquidity.
+
+  [CRITICAL]  OWNER CAN PULL LIQUIDITY
+     The team can take the trading pool itself. The token still exists;
+     there is simply nothing left to sell it into.
+
+
+  -> 4 red flag(s).
+
+==========================================================================
+  EXAMPLE B — the same functions, bounded
+==========================================================================
+  [    good]  renounceOwnership
+  [    good]  hard-capped supply
+
+  -> no red flags in these five patterns.

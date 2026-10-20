@@ -40,6 +40,15 @@ matches the value published on the real contract —
 
 So the hash the demo shows is the same 32 bytes a wallet would show you, not an illustration.
 
+Check it against the live contract yourself — any public mainnet RPC works:
+
+```bash
+cast call 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 "DOMAIN_SEPARATOR()(bytes32)" \
+    --rpc-url https://ethereum-rpc.publicnode.com
+python3 decode_permit.py --domain-separator
+# both print 0x06c37168a7db5138defc7866392bb87a741f9b3d104deb5094588ce041cae335
+```
+
 ## What the output demonstrates
 
 ```

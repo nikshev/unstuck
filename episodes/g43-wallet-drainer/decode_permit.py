@@ -81,6 +81,13 @@ def human(td):
 
 
 if __name__ == "__main__":
+    import sys
+    if "--domain-separator" in sys.argv:
+        # The value the script derives for USDC, to compare against the live contract:
+        #   cast call 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 "DOMAIN_SEPARATOR()(bytes32)" --rpc-url <mainnet>
+        print("0x" + hash_struct(TYPED_DATA["types"], "EIP712Domain", TYPED_DATA["domain"]).hex())
+        sys.exit(0)
+
     digest = eip712_digest(TYPED_DATA)
 
     print("=" * 74)

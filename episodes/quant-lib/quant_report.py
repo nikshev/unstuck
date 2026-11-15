@@ -11,6 +11,25 @@ def newest():
     return max(Path("user_data/backtest_results").glob("*.zip"),
                key=lambda p: p.stat().st_mtime)
 
+MEANING = {
+    "starting balance": "the deposit we start with",
+    "final balance": "what the account is worth at the end",
+    "CAGR": "compound annual growth rate: growth per year",
+    "max drawdown": "deepest fall from a peak, closed trades only",
+    "trades": "positions opened and closed",
+    "long profit": "from longs (bets on a rise)",
+    "short profit": "from shorts (bets on a fall)",
+    "funding paid": "paid between longs and shorts every 8 h",
+    "fees paid": "exchange fee, 0.05% of every order",
+}
+
+def shown(name, value):
+    if name in ("CAGR", "max drawdown"):
+        return f"{value:.1%}"                            # a share -> percent
+    if name == "trades":
+        return f"{value:.0f}"
+    return f"{value:,.0f} USDT"
+
 def verdict(name):
     s = load_backtest_stats(newest())["strategy"][name]   # freqtrade's summary
     t = load_backtest_data(newest())                      # every trade
@@ -23,7 +42,8 @@ def verdict(name):
            "long profit": s["profit_total_long_abs"],
            "short profit": s["profit_total_short_abs"],
            "funding paid": t["funding_fees"].sum(), "fees paid": -fees}
-    print(pd.Series(row).round(3).to_string())
+    for name, value in row.items():                       # value + its meaning
+        print(f"{name:<16}{shown(name, value):>13}  {MEANING[name]}")
     return row, t
 
 
